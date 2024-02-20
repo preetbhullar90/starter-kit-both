@@ -19,7 +19,7 @@ const ARSceneWithLocation = () => {
 
   // Fetch reviews from Google Places API
   const fetchReviews = async (latitude, longitude) => {
-    const apiKey = "Your API Key";
+    const apiKey = "AIzaSyAAx2D0bE34UFYJUsX2ymxmtJmFX86Vqjk";
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=restaurant&key=${apiKey}`;
 
     try {
