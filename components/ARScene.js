@@ -14,8 +14,33 @@ const ARSceneWithLocation = () => {
   const [position, setPosition] = useState(null);
   const [radius, setRadius] = useState(1000);
   const [reviews, setReviews] = useState([]);
-  const [defaultComments, setDefaultComments] = useState(["Great restaurant!"]);
+  const [reviewIndex, setReviewIndex] = useState(0);
   console.log(reviews)
+
+
+  const exampleReviews = [
+    {
+      place_name: "TBC",
+      author: "johnny 1",
+      body: "good",
+      star_rating: 3,
+      created_at : "2021-05-17"
+    },
+    {
+    place_name: "TBC",
+    author: "johnny 2",
+    body: "good good",
+    star_rating: 4,
+    created_at : "2021-05-16"
+    },
+    {
+    place_name: "TBC",
+    author: "johnny 3",
+    body: "good good goood",
+    star_rating: 5,
+    created_at : "2021-05-15"    
+    } ]
+
 
   // Fetch reviews from Google Places API
   const fetchReviews = async (latitude, longitude) => {
@@ -67,6 +92,22 @@ const ARSceneWithLocation = () => {
     }
   }
 
+  // cycle through reviews
+  const onReviewClick = () => {
+    setReviewIndex((prevIndex) => (prevIndex + 1) % exampleReviews.length);
+  };
+  const onClickState = (stateValue, position, source) => {
+    if (stateValue === 3) {
+      onReviewClick();
+    }
+  };
+
+  //go back to the lastest review ()
+  const onResetReviewsClick = () => {
+    setReviewIndex(0);
+    
+  };
+
   // Render reviews as ViroText components
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
@@ -79,6 +120,7 @@ const ARSceneWithLocation = () => {
           position={[0, 0, -10]}
           transformBehaviors={["billboard"]}
           backgroundColor={"white"}
+          onClickState={onClickState}
         >
           <ViroFlexView
             backgroundColor={"white"}
@@ -121,12 +163,36 @@ const ARSceneWithLocation = () => {
           >
             <ViroText
               style={{ color: "black", flex: 1 }}
-              text={`${defaultComments}`}
+              text={`user rated: ${exampleReviews[reviewIndex].star_rating}`}
               fontSize={30}
             />
+            
+            <ViroText
+              style={{ color: "black", flex: 1.5 }}
+              text={`${exampleReviews[reviewIndex].body}`}
+              fontSize={30}
+            />
+
           </ViroFlexView>
+          
         </ViroFlexView>
+
+        
       ))}
+
+      <ViroFlexView
+        height={0.5}
+        width={2}
+        position={[0, -2, -10]}
+        backgroundColor={"blue"}
+        onClickState={onResetReviewsClick}
+      >
+        <ViroText
+          style={{ color: "white", flex: 1, textAlignVertical: "center", textAlign: "center" }}
+          text={"Back to latest review"}
+          fontSize={20}
+        />
+        </ViroFlexView>
     </ViroARScene>
   );
 };
