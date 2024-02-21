@@ -1,12 +1,18 @@
+import 'react-native-gesture-handler'
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+
 import WelcomePage from "./components/WelcomePage";
+import CommentPage from './components/CommentPage';
+import ARSceneWithLocation from "./components/ARScene";
 
 import { ViroARSceneNavigator } from "@viro-community/react-viro";
 import MapView, { Marker, Circle } from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 
-import ARSceneWithLocation from "./components/ARScene";
+const Stack = createStackNavigator()
 
 // Main App component
 const App = () => {
@@ -31,7 +37,14 @@ const App = () => {
 
   // Render MapView and ARSceneNavigator
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home"
+      screenOptions={{headerShown: false}}
+      >
+
+      <Stack.Screen name="Home">
+          {(props) => (
+      <View style={styles.container}>
       {!showARView && <WelcomePage onStartAR={handleStartAR} />}
       {showARView && (
        
@@ -40,8 +53,6 @@ const App = () => {
             initialScene={{ scene: ARSceneWithLocation }}
             style={{ flex: 1 }}
           />
-         
-        
       )}
 
       {position && showARView && (
@@ -73,6 +84,11 @@ const App = () => {
         </MapView>
       )}
     </View>
+    )}
+    </Stack.Screen>
+    <Stack.Screen name="CommentPage" component={CommentPage} />
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

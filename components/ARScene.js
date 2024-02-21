@@ -7,12 +7,15 @@ import {
   ViroTrackingStateConstants,
 } from "@viro-community/react-viro";
 import Geolocation from "@react-native-community/geolocation";
+import { useNavigation } from "@react-navigation/native";
 
 // Main AR Scene component
 const ARSceneWithLocation = () => {
+ const navigation = useNavigation()
+
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(1000);
+  const [radius, setRadius] = useState(100);
   const [reviews, setReviews] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
   console.log(reviews)
@@ -108,8 +111,15 @@ const ARSceneWithLocation = () => {
     
   };
 
+  //add review
+  const onAddReviewClick = () => {
+   navigation.navigate("CommentPage")
+  };
+
+
   // Render reviews as ViroText components
   return (
+    
     <ViroARScene onTrackingUpdated={onInitialized}>
       {reviews.map((review, index) => (
 
@@ -138,7 +148,7 @@ const ARSceneWithLocation = () => {
               style={{ flex: 0.9, flexDirection: "row", opacity: 0.7 }}
             >
               <ViroText
-                text={`${review.rating}`}
+                text={`Rating: ${review.rating}     Reviews: (${exampleReviews.length})`}
                 position={[0, index * 0.5, -2]}
 
                 style={styles.helloWorldTextStyle}
@@ -183,13 +193,27 @@ const ARSceneWithLocation = () => {
       <ViroFlexView
         height={0.5}
         width={2}
-        position={[0, -2, -10]}
+        position={[-1.5, -2, -10]}
         backgroundColor={"blue"}
         onClickState={onResetReviewsClick}
+        
       >
         <ViroText
           style={{ color: "white", flex: 1, textAlignVertical: "center", textAlign: "center" }}
           text={"Back to latest review"}
+          fontSize={20}
+        />
+        </ViroFlexView>
+        <ViroFlexView
+        height={0.5}
+        width={2}
+        position={[1.5, -2, -10]}
+        backgroundColor={"blue"}
+        onClickState={onAddReviewClick}
+      >
+        <ViroText
+          style={{ color: "white", flex: 1, textAlignVertical: "center", textAlign: "center" }}
+          text={"Add a review"}
           fontSize={20}
         />
         </ViroFlexView>
