@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const CommentPage = () => {
   const [commentBody, setCommentBody] = useState("");
   const [showPostComment, setShowPostComment] = useState(false);
   const [isPostingComment, setIsPostingComment] = useState(false);
-
+const navigation = useNavigation();
   const togglePostComment = () => {
     setShowPostComment(!showPostComment);
   };
@@ -36,9 +37,9 @@ const CommentPage = () => {
           <View style={styles.buttonContainer}>
             <Button
               title="Cancel"
-              onPress={togglePostComment}
+              onPress={() => navigation.push("Home")}
               color="green"
-              disabled={isPostingComment}
+              
             />
             <Button
               title="Post 📨"
