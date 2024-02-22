@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
         textAlignVertical: "center",
         textAlignHorizontal: "center",
         textAlign: "center",
-        fontSize: 30
+        fontSize: 40,
+        fontWeight: "bold"
     },
     displayedVenueAvgRatingBar: {
         flex: 0.25,
@@ -44,9 +45,10 @@ const styles = StyleSheet.create({
     displayedReviewBody: {
         flex: 1,
         flexDirection: "row",
-        backgroundColor: "blue"
+        backgroundColor: "white"
     },
     displayedReviewBodyText: {
+        color: "black",
         flex: 0.8,
         flexDirection: "row",
         alignItems: "center",
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     },
 
     displayedReviewRating: {
+        color: "black",
         flex: 0.2,
         flexDirection: "row",
         alignItems: "center",

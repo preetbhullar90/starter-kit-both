@@ -5,6 +5,8 @@ import {
   ViroFlexView,
   ViroText,
   ViroTrackingStateConstants,
+  Viro3DObject,
+  ViroImage
 } from "@viro-community/react-viro";
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
@@ -141,14 +143,14 @@ const ARScene = () => {
           <ViroFlexView style={styles.displayedVenueAvgRatingBar} >
             <ViroText
               style={styles.displayedVenueAvgRatingBarText}
-              text={`Rating: ${review.rating}     Reviews: (${exampleReviews.length})`}
+              text={`Average Rating: ${review.rating}, from ${exampleReviews.length} Reviews`}
               position={[0, index * 0.5, -2]}
             />
           </ViroFlexView>
 
           <ViroFlexView style={styles.displayedReviewBody}>
-            <ViroText style={styles.displayedReviewBodyText} text={`Comment: ${exampleReviews[reviewIndex].body}`} />
-            <ViroText style={styles.displayedReviewRating} text={`Rating:${exampleReviews[reviewIndex].star_rating}`} />
+            <ViroText style={styles.displayedReviewBodyText} text={`${exampleReviews[reviewIndex].body}`} />
+            <ViroText style={styles.displayedReviewRating} text={`${exampleReviews[reviewIndex].star_rating} Stars`} />
           </ViroFlexView>
 
         </ViroFlexView>
@@ -169,6 +171,16 @@ const ARScene = () => {
       >
         <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
       </ViroFlexView>
+
+      <Viro3DObject 
+      source={require('../assets/star.obj')}
+      resources={[require('../assets/star.mtl')]}
+      type="OBJ"
+      position={[0,0,-5]}
+      scale={[1,1,1]}
+      />
+
+      <ViroSphere position={[0,0,0]} scale={[1,1,1]} />
 
     </ViroARScene>
   );
