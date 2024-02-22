@@ -20,7 +20,7 @@ const ARScene2 = () => {
 
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(15);
+  const [radius, setRadius] = useState(14300);
   const [reviews, setReviews] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
 
@@ -82,18 +82,23 @@ const ARScene2 = () => {
   }
 
   // cycle through reviews
-  const onReviewClick = (venueId) => {
-    const reviewsForVenue = commentData.comments.filter(
-      (comment) => comment.venue_id === venueId
-    );
-    const nextIndex = (reviewIndex + 1) % reviewsForVenue.length;
-    setReviewIndex(nextIndex);
+  const onReviewClick = () => {
+    if (reviews.length > 0) {
+      const venueId = reviews[0].comments[reviewIndex] && reviews[0].comments[reviewIndex].venue_id;
+      const venueWithComments = reviews.find((venue) => venue.venue_id === venueId);
+      const commentsForVenue = venueWithComments && venueWithComments.comments;
+      let nextIndex = reviewIndex + 1;
+
+    if (commentsForVenue && commentsForVenue.length > 0) {
+        nextIndex = nextIndex % commentsForVenue.length;
+      }
+      setReviewIndex(nextIndex);
+    }
   };
 
   const onClickState = (stateValue, position, source) => {
-    if (stateValue === 3 && source && source.id) {
-      const venueId = source.id;
-      onReviewClick(venueId);
+    if (stateValue === 3) {
+      onReviewClick();
     }
   };
 
@@ -200,7 +205,7 @@ const ARScene2 = () => {
                 justifyContent: "center",
                 fontFamily: "",
               }}
-              text={`${venue.comments[reviewIndex].venue_id} Stars`}
+              text={`${venue.comments[reviewIndex].comment_rating} Stars`}
               fontSize={20}
             />
           </ViroFlexView>
