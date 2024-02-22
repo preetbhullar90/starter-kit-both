@@ -172,20 +172,10 @@ const ARScene = () => {
         <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
       </ViroFlexView>
 
-      <Viro3DObject 
-      source={require('../assets/star.obj')}
-      resources={[require('../assets/star.mtl')]}
-      type="OBJ"
-      position={[0,0,-5]}
-      scale={[1,1,1]}
-      />
-
-      <ViroSphere position={[0,0,0]} scale={[1,1,1]} />
 
     </ViroARScene>
   );
 };
-
 
 
 export default ARScene;
