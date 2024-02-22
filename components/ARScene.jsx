@@ -177,5 +177,4 @@ const ARScene = () => {
 };
 
 
-
 export default ARScene;
