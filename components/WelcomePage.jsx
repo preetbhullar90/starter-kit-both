@@ -1,55 +1,95 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler"; //  TouchableOpacity button to Explore Later...
+import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from "react-native";
+import { useContext, useState } from 'react';
+import { CurrentUserContext } from "./CurrentUser";
+
 
 const WelcomePage = ({ onStartAR, onFakeAR }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+  const userFirstName = currentUser.name.split(" ")[0];
   return (
-    <ImageBackground
-      source={require("../_media_/background-02.jpg")}
-      style={styles.backgroundImage}
-    >
-      <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome Team-Six...</Text>
-        <Image
-          source={require("../_media_/review-ar-04.png")}
-          style={styles.logoImage}
-        />
-        <Button title="Start with Google-API!" onPress={onStartAR} color="black" />{/* Find a way to style buttons */ }
-        <Button title="Start with Own-API" onPress={onFakeAR} color="black" />
+    <View style={styles.container}>
+      <Image source={require('../_media_/review-ar-03.png')} style={styles.logo} />
+      
+      <Text style={styles.subtitle}>Discover Places Near You</Text>
+      <Text style={styles.subtitle}>{`Welcome, ${userFirstName}!`}</Text>
+
+      <View style={styles.buttonGroupContainer}>
+        
+        <View style={styles.buttonGroup}>
+          <TouchableOpacity onPress={onStartAR}>
+            <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
+          </TouchableOpacity>
+          <Pressable style={styles.button} onPress={onStartAR}>
+            <Text style={styles.text}>START {'\n'}(Google API)</Text>
+          </Pressable>
+        </View>
+
+        
+        <View style={styles.buttonGroup}>
+          <TouchableOpacity onPress={onFakeAR}>
+            <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
+          </TouchableOpacity>
+          <Pressable style={styles.button} onPress={onFakeAR}>
+            <Text style={styles.text}>START {'\n'}(Own API)</Text>
+          </Pressable>
+
+        </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: "#2E3B4E",
   },
-  welcomeText: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 20,
-    left: 20,
+  appName: {
+    color: '#FFFFFF',
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginBottom: 15,
   },
-  logoImage: {
-    marginTop: 60,
+  subtitle: {
+    color: '#8F9BB3',
+    fontSize: 18,
+    marginBottom: 15,
+  },
+  arIcon: {
+    width: 75,
+    height: 75,
+    marginTop: 25,
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'green',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+    textAlign:"center"
+  },
+  buttonGroupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    width: '80%', 
+    marginTop: 15, 
+  },
+  buttonGroup: {
+    flex: 1,
+    alignItems: 'center', 
   },
 });
+
 
 export default WelcomePage;
