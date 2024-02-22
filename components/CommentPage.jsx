@@ -1,7 +1,17 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, Platform, Text } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Platform,
+  Text,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ImageBackground } from "react-native";
 
 const CommentPage = () => {
   const [commentBody, setCommentBody] = useState("");
@@ -20,14 +30,18 @@ const CommentPage = () => {
   };
 
   return (
-    <ImageBackground source={require("../_media_/background-01.jpg")} style={styles.backgroundImage}>
+    <ImageBackground
+      source={require("../_media_/background-03.jpg")}
+      style={styles.backgroundImage}
+    >
       <View style={styles.container}>
-        <Button
-          title="Write a Comment ✍"
-          onPress={togglePostComment}
-          color="black"
-          style={styles.commentButton}
-        />
+        <TouchableOpacity onPress={togglePostComment}>
+          <Image
+            source={require("../_media_/write-a-review.png")}
+            style={{ width: 300, height: 80 }}
+          />
+        </TouchableOpacity>
+
         {showPostComment && (
           <View style={styles.formContainer}>
             <TextInput
@@ -40,21 +54,28 @@ const CommentPage = () => {
               numberOfLines={10}
             />
             <View style={styles.buttonContainer}>
-              <Button
-                title="❌ Cancel"
+              <TouchableOpacity
                 onPress={() =>
                   Platform.OS === "ios"
                     ? navigation.navigate("Home")
                     : navigation.push("Home")
                 }
-                color="black"
-              />
-              <Button
-                title="Post ✅"
+              >
+                <Image
+                  source={require("../_media_/Cancel.png")}
+                  style={{ width: 50, height: 50 }}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
                 onPress={handleNewCommentSubmit}
-                color="black"
                 disabled={isPostingComment}
-              />
+              >
+                <Image
+                  source={require("../_media_/Post.png")}
+                  style={{ width: 120, height: 50 }}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         )}
