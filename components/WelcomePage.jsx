@@ -9,14 +9,23 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler"; //  TouchableOpacity button to Explore Later...
 
+//IMPORT CONTEXT FUNCTIONALITY AND CURRENTUSER CONTEXT
+import { useContext, useState } from 'react';
+import { CurrentUserContext } from "./CurrentUser";
+
 const WelcomePage = ({ onStartAR, onFakeAR }) => {
+
+  //GRAB CONTEXT
+  const { currentUser } = useContext(CurrentUserContext);
+  const userFirstName = currentUser.name.split(" ")[0];
+
   return (
     <ImageBackground
       source={require("../_media_/background-02.jpg")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome Team-Six...</Text>
+        <Text style={styles.welcomeText}>{`Welcome ${userFirstName}...`}</Text>
         <Image
           source={require("../_media_/review-ar-04.png")}
           style={styles.logoImage}
