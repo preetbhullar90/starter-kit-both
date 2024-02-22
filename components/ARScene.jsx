@@ -171,12 +171,11 @@ const ARScene = () => {
       >
         <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
       </ViroFlexView>
-      
+
 
     </ViroARScene>
   );
 };
-
 
 
 export default ARScene;

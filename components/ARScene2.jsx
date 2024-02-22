@@ -110,7 +110,7 @@ const ARScene2 = () => {
     setReviewIndex(0);
   };
 
-  //add review
+  //add review ()
   const onAddReviewClick = () => {
     navigation.navigate("CommentPage");
   };
@@ -133,7 +133,6 @@ const ARScene2 = () => {
                 position={[0, 0.5, -2]}
                 style={{ color: "white" }}
             />
-              
             <ViroText
                 style={styles.displayedVenueTitleBarText}
                 text={`${venue.venue_name}`}
@@ -158,7 +157,7 @@ const ARScene2 = () => {
         </ViroFlexView>
       ))}
 
-<ViroFlexView
+      <ViroFlexView
         style={styles.mostRecentReviewButton}
         position={[-2, -3.5, -12]}
         onClickState={onResetReviewsClick}
