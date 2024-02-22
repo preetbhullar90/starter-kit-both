@@ -13,8 +13,9 @@ const SwitchUser = () => {
     //CONTEXT
     const { currentUser } = useContext(CurrentUserContext)
 
-    //STATE
+    //STATES
     const [availableUsers, setAvailableUsers] = useState([]);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     //GET ALL USERS
     useEffect(() => {
@@ -31,16 +32,12 @@ const SwitchUser = () => {
         })
     }, [])
 
-    console.log(availableUsers[0].username)
-
     //HANDLE THE SCROLLVIEW FUNCTIONALITY
-    const [selectedItem, setSelectedItem] = useState(null);
-
     const handleScroll = (event) => {
       const offsetY = event.nativeEvent.contentOffset.y;
-      const itemHeight = 50; // Adjust according to your layout
+      const itemHeight = 50;
       const index = Math.floor(offsetY / itemHeight);
-      setSelectedItem(items[index]);
+      setSelectedItem(availableUsers[index]);
     };
 
     return (

@@ -16,10 +16,7 @@ import Geolocation from "@react-native-community/geolocation";
 
 const Stack = createStackNavigator();
 
-//Go to switch user page
-const onSwitchUserClick = () => {
-  navigation.navigate("SwitchUser");
-};
+
 
 // Main App component
 const App = () => {
