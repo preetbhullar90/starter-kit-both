@@ -6,6 +6,7 @@
       "venue_address": "123 Main Street",
       "venue_type": "Cafe",
       "venue_webpage": "http://www.tastybitescafe.com",
+      "venue_rating": 4.1,
       "venue_location": {
         "latitude": 40.7128,
         "longitude": -74.0060
@@ -17,6 +18,7 @@
       "venue_address": "456 Oak Avenue",
       "venue_type": "Restaurant",
       "venue_webpage": "http://www.sizzlingsteakhouse.com",
+      "venue_rating": 4.2,
       "venue_location": {
         "latitude": 34.0522,
         "longitude": -118.2437
@@ -28,6 +30,7 @@
       "venue_address": "789 Stadium Way",
       "venue_type": "Stadium",
       "venue_webpage": "http://www.citystadium.com",
+      "venue_rating": 4.3,
       "venue_location": {
         "latitude": 51.5074,
         "longitude": -0.1278
@@ -39,6 +42,7 @@
       "venue_address": "101 Library Avenue",
       "venue_type": "Library",
       "venue_webpage": "http://www.centrallibrary.com",
+      "venue_rating": 4.4,
       "venue_location": {
         "latitude": 40.7527,
         "longitude": -73.9772
@@ -50,6 +54,7 @@
       "venue_address": "555 Health Street",
       "venue_type": "Hospital",
       "venue_webpage": "http://www.communityhospital.com",
+      "venue_rating": 4.5,
       "venue_location": {
         "latitude": 52.6513,
         "longitude": -0.4861
