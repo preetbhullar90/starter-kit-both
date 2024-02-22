@@ -9,6 +9,8 @@ import {
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
 
+//main styles component
+import styles from "../styles"
 
 // Main AR Scene component
 const ARScene = () => {
@@ -16,7 +18,7 @@ const ARScene = () => {
 
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(200);
+  const [radius, setRadius] = useState(1000);
   const [reviews, setReviews] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
   console.log(reviews);
@@ -95,7 +97,7 @@ const ARScene = () => {
     }
   }
 
-  // cycle through reviews
+  // cycle through reviews ()
   const onReviewClick = () => {
     setReviewIndex((prevIndex) => (prevIndex + 1) % exampleReviews.length);
   };
@@ -110,7 +112,7 @@ const ARScene = () => {
     setReviewIndex(0);
   };
 
-  //add review
+  //add review ()
   const onAddReviewClick = () => {
     navigation.navigate("CommentPage");
   };
@@ -121,133 +123,57 @@ const ARScene = () => {
     <ViroARScene onTrackingUpdated={onInitialized}>
       {reviews.map((review, index) => (
         <ViroFlexView
+          style={styles.venueInfoAndReviewsContainer}
           key={index}
-          height={4}
-          width={6}
           position={[0, 0, -10]}
           transformBehaviors={["billboard"]}
-          backgroundColor={"black"}
           onClickState={onClickState}
-          style={{ opacity: 0.7 }}
         >
-          <ViroFlexView
-            backgroundColor={"white"}
-            style={{ flex: 0.2, flexDirection: "row" }}
-          >
-            <ViroFlexView
-              backgroundColor={"navy"}
-              style={{ flex: 1, flexDirection: "row" }}
-            >
+
+            <ViroFlexView  style={styles.displayedVenueTitleBar} >
               <ViroText
+                style={styles.displayedVenueTitleBarText}
                 text={`${review.name}`}
-                fontSize={30}
                 position={[0, index * 0.5, -2]}
-                style={{
-                  color: "black",
-                  flex: 1,
-                  textAlignVertical: "center",
-                  textAlign: "center",
-                }}
               />
             </ViroFlexView>
-          </ViroFlexView>
-
-          <ViroFlexView
-            backgroundColor={"yellow"}
-            style={{ flex: 0.25, flexDirection: "row" }}
-          >
+      
+          <ViroFlexView style={styles.displayedVenueAvgRatingBar} >
             <ViroText
-              style={{
-                color: "black",
-                flex: 1,
-                textAlignVertical: "center",
-                textAlign: "center",
-              }}
+              style={styles.displayedVenueAvgRatingBarText}
               text={`Rating: ${review.rating}     Reviews: (${exampleReviews.length})`}
               position={[0, index * 0.5, -2]}
-              fontSize={30}
             />
           </ViroFlexView>
 
-          <ViroFlexView
-            backgroundColor={"black"}
-            style={{ flex: 1, flexDirection: "row" }}
-          >
-            <ViroText
-              style={{
-                flex: 0.8,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              text={`Comment: ${exampleReviews[reviewIndex].body}`}
-              fontSize={30}
-            />
-            <ViroText
-              style={{
-                flex: 0.2,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily:""
-              }}
-              text={`Rating:${exampleReviews[reviewIndex].star_rating}`}
-              fontSize={30}
-            />
+          <ViroFlexView style={styles.displayedReviewBody}>
+            <ViroText style={styles.displayedReviewBodyText} text={`Comment: ${exampleReviews[reviewIndex].body}`} />
+            <ViroText style={styles.displayedReviewRating} text={`Rating:${exampleReviews[reviewIndex].star_rating}`} />
           </ViroFlexView>
+
         </ViroFlexView>
       ))}
-
+      
       <ViroFlexView
-      style={{opacity: 0.7}}
-        height={1.5}
-        width={2.5}
+        style={styles.mostRecentReviewButton}
         position={[-2, -3.5, -12]}
-        backgroundColor={"black"}
         onClickState={onResetReviewsClick}
       >
-        <ViroText
-          style={{
-            color: "white",
-            flex: 1,
-            textAlignVertical: "center",
-            textAlign: "center",
-          }}
-          text={"⏪ Back to Top"}
-          fontSize={30}
-        />
+        <ViroText style={styles.mostRecentReviewButtonText} text={"⏪ Back to Top"} />
       </ViroFlexView>
 
       <ViroFlexView
-        style={{opacity: 0.7}}
-        height={1.5}
-        width={2.5}
+        style={styles.addReviewButton}
         position={[2, -3.5, -12]}
-        backgroundColor={"green"}
         onClickState={onAddReviewClick}
       >
-        <ViroText
-          style={{
-            color: "black",
-            flex: 1,
-            textAlignVertical: "center",
-            textAlign: "center",
-          }}
-          text={"Add a Review 🗯"}
-          fontSize={30}
-        />
+        <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
       </ViroFlexView>
+
     </ViroARScene>
   );
 };
 
-const styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontStyle: "bold",
-    fontSize: 20,
-    color: "#000",
-    textAlign: "center",
-  },
-});
+
 
 export default ARScene;
