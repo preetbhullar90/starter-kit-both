@@ -66,13 +66,87 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: "bold"
     },
-    displayedVenueAvgRatingBar: {
+//////////////////////////
+    displayedReviewAvgRatingVisual: {
+        flex: 0.2,
+        opacity: 1,
+        width: 6,
+        flexDirection: "row",
+        backgroundColor: "black"
+    },
+    avg1Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 0, 0)',
+        width: 1.2
+    },
+    avg2Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 165, 0)',
+        width: 1.2
+    },
+    avg3Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 255, 0)',
+        width: 1.2
+    },
+    avg4Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(144, 238, 144)',
+        width: 1.2
+    },
+    avg5Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(0, 128, 0)',
+        width: 1.2
+    },
+
+
+////////////////////////////
+    // displayedVenueAvgRatingBar: {
+    //     flex: 0.25,
+    //     flexDirection: "row",
+    //     backgroundColor: "yellow"
+    // },
+
+
+    // displayedVenueAvgRatingBarBase: {
+    //     flex: 0.25,
+    //     flexDirection: "row",
+    //   },
+      displayedVenueAvgRatingBarRed: {
         flex: 0.25,
         flexDirection: "row",
-        backgroundColor: "yellow"
-    },
+        backgroundColor: "rgb(255, 0, 0)", // Red
+      },
+      displayedVenueAvgRatingBarOrange: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(255, 165, 0)", // Orange
+      },
+      displayedVenueAvgRatingBarYellow: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(255, 255, 0)", // Yellow
+      },
+      displayedVenueAvgRatingBarLightGreen: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(144, 238, 144)", // Light Green
+      },
+      displayedVenueAvgRatingBarGreen: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(0, 128, 0)", // Green
+      },
+
+
+
+
+
+
+////////////////////////////
     displayedVenueAvgRatingBarText: {
-        color: "black",
+        color: "white",
         flex: 1,
         textAlignVertical: "center",
         textAlign: "center",
