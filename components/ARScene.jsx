@@ -9,7 +9,6 @@ import {
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
 
-import { TestComponent } from "./TestComponent";
 
 //main styles file
 import styles from "../styles"
@@ -119,22 +118,21 @@ const ARScene = () => {
     navigation.navigate("CommentPage");
   };
 
-  // Function for deciding styling of the average rating bar
+  // decide styling of the average rating bar ()
   const getRatingStyle = (review) => {
-  const rating = parseFloat(review.rating);
-
-  if (rating >= 1 && rating < 2.1) {
-    return styles.displayedVenueAvgRatingBarRed;
-  } else if (rating >= 2.1 && rating < 3.1) {
-    return styles.displayedVenueAvgRatingBarOrange;
-  } else if (rating >= 3.1 && rating < 4.1) {
-    return styles.displayedVenueAvgRatingBarYellow;
-  } else if (rating >= 4.1 && rating < 5) {
-    return styles.displayedVenueAvgRatingBarLightGreen;
-  } else {
-    return styles.displayedVenueAvgRatingBarGreen;
-  }
-};
+    const rating = parseFloat(review.rating);
+    if (rating >= 1 && rating < 2.1) {
+      return styles.displayedVenueAvgRatingBarRed;
+    } else if (rating >= 2.1 && rating < 3.1) {
+      return styles.displayedVenueAvgRatingBarOrange;
+    } else if (rating >= 3.1 && rating < 4.1) {
+      return styles.displayedVenueAvgRatingBarYellow;
+    } else if (rating >= 4.1 && rating < 5) {
+      return styles.displayedVenueAvgRatingBarLightGreen;
+    } else {
+      return styles.displayedVenueAvgRatingBarGreen;
+    }
+  };
     
   // Render reviews as ViroText components
   return (
@@ -142,6 +140,7 @@ const ARScene = () => {
     <ViroARScene onTrackingUpdated={onInitialized}>
       {reviews.map((review, index) => (
         
+        // THE MAIN REVIEW CARD CONTAINER
         <ViroFlexView
           style={styles.venueInfoAndReviewsContainer}
           key={index}
@@ -150,6 +149,7 @@ const ARScene = () => {
           onClickState={onClickState}
         >
 
+        {/* THE PARTICULAR VENUE NAME HEADER */}
           <ViroFlexView  style={styles.displayedVenueTitleBar} >
             <ViroText
               style={styles.displayedVenueTitleBarText}
@@ -158,7 +158,8 @@ const ARScene = () => {
             />
           </ViroFlexView>
 
-          <ViroFlexView style={[getRatingStyle(review)]} >
+        {/* THE AVERAGE RATING VISUAL */}
+          <ViroFlexView style={styles.displayedReviewAvgRatingVisual} >
             <ViroFlexView style={styles.avg1Star} />
             {parseInt(review.rating) >= 2 && <ViroFlexView style={styles.avg2Star} />}
             {parseInt(review.rating) >= 3 && <ViroFlexView style={styles.avg3Star} />}
@@ -166,15 +167,8 @@ const ARScene = () => {
             {parseInt(review.rating) === 5 && <ViroFlexView style={styles.avg5Star} />}
           </ViroFlexView>
 
-          {/* <ViroFlexView style={styles.displayedVenueAvgRatingBar} >
-            <ViroText
-              style={styles.displayedVenueAvgRatingBarText}
-              text={`Average Rating: ${review.rating}, from ${exampleReviews.length} Reviews`}
-              position={[0, index * 0.5, -2]}
-            />
-          </ViroFlexView> */}
-
-          <ViroFlexView style={styles.displayedVenueAvgRatingBarLightGreen}>
+          {/* THE AVERAGE RATING TEXT BAR */}
+          <ViroFlexView style={[getRatingStyle(review)]}>
             <ViroText
             style={styles.displayedVenueAvgRatingBarText}
             text={`Average Rating: ${review.rating}, from ${exampleReviews.length} Reviews`}
@@ -182,6 +176,7 @@ const ARScene = () => {
             />
           </ViroFlexView>
 
+          {/* THE REVIEW BODY AND INDIVIDUAL REVIEW RATING */}
           <ViroFlexView style={styles.displayedReviewBody}>
             <ViroText style={styles.displayedReviewBodyText} text={`${exampleReviews[reviewIndex].body}`} />
             <ViroText style={styles.displayedReviewRating} text={`${exampleReviews[reviewIndex].star_rating} Stars`} />

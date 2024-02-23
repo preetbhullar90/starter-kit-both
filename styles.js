@@ -72,31 +72,36 @@ const styles = StyleSheet.create({
         opacity: 1,
         width: 6,
         flexDirection: "row",
-        backgroundColor: "black"
+        backgroundColor: "white"
     },
     avg1Star: {
         flex: 0.2,
         backgroundColor: 'rgb(255, 0, 0)',
+        opacity: 1,
         width: 1.2
     },
     avg2Star: {
         flex: 0.2,
         backgroundColor: 'rgb(255, 165, 0)',
+        opacity: 1,
         width: 1.2
     },
     avg3Star: {
         flex: 0.2,
         backgroundColor: 'rgb(255, 255, 0)',
+        opacity: 1,
         width: 1.2
     },
     avg4Star: {
         flex: 0.2,
         backgroundColor: 'rgb(144, 238, 144)',
+        opacity: 1,
         width: 1.2
     },
     avg5Star: {
         flex: 0.2,
         backgroundColor: 'rgb(0, 128, 0)',
+        opacity: 1,
         width: 1.2
     },
 
