@@ -15,7 +15,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { fetchVenues, postReviews } from "../utils";
 
-const CommentPage = () => {
+const CommentPage = (venueId) => {
   const [body, setCommentBody] = useState("");
   const [star_rating, setRating] = useState("");
   const [showPostComment, setShowPostComment] = useState(true);
@@ -28,23 +28,24 @@ const CommentPage = () => {
 
 
 const { currentUser } = useContext(CurrentUserContext);
+const { user_id, author, name } = currentUser;
 
-  const username = currentUser.username
-console.log(username)
-   const reviewObj = {
-     venue_id: 1,
-     user_id: 1,
-     author: "johnny123",
-     place_name: "Sunflower Fields",
-   };
+  //  const reviewObj = {
+  //    venue_id: 1,
+  //    place_name: "Sunflower Fields",
+  //  };
   
-  const venue_id = reviewObj.venue_id;
-  const user_id = 1;
-  const author = reviewObj.author;
-  const place_name = reviewObj.place_name;
-
-
+  // const user_id = currentUser.user_id
+ 
   
+//   const venue_id = reviewObj.venue_id;
+//   const place_name = reviewObj.place_name;
+// console.log(typeof reviewObj.author,'2')
+
+  const both = venueId.route.params;
+  const { venue_id, place_name } = both;
+  console.log('VenueId:', venue_id);
+  console.log('Place Name:',place_name);
   
   
   useEffect(() => {

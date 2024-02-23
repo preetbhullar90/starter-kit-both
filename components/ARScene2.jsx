@@ -30,14 +30,9 @@ const ARScene2 = () => {
   const [venue_id, setVenueId] = useState(null);
   const [users, setUsers] = useState([]);
  const [newReviews, setNewReviews] = useState([]);
+const [selectedVenueId, setSelectedVenueId] = useState(null);
 
-
-  // const venueId = data.filter((venues) => {
-  //   return venues.venue_id;
-  // })[0];
-  // const id = venueId.venue_id;
-
-  // console.log(newReviews);
+  //console.log(reviews)
 
 
 useEffect(() => {
@@ -48,7 +43,7 @@ useEffect(() => {
       setLoading(false);
     })
     .catch((error) => {
-      setError(error.response);
+      //setError(error.response);
       setLoading(false);
     });
 
@@ -64,18 +59,6 @@ useEffect(() => {
   //   });
 
 
-   fetchReviews(3)
-     .then((response) => {
-       console.log(response.reviews)
-         setNewReviews(response.reviews);
-         setLoading(false);
-
-     })
-     .catch((error) => {
-       setError(error);
-       setLoading(false);
-     });
-  
   
 
   fetchUsers()
@@ -85,10 +68,34 @@ useEffect(() => {
       setLoading(true);
     })
     .catch((error) => {
-      setError(error);
+      //setError(error);
       setLoading(false);
     });
 }, []);
+  
+  
+  
+   useEffect(() => {
+     fetchVenues()
+       .then((response) => {
+         setReviews(response.venues);
+         setLoading(false);
+       })
+       .catch((error) => {
+         //setError(error.response);
+         setLoading(false);
+       });
+
+     fetchReviews(selectedVenueId)
+       .then((response) => {
+         setNewReviews(response.reviews);
+         setLoading(false);
+       })
+       .catch((error) => {
+         //setError(error.response);
+         setLoading(false);
+       });
+   }, [selectedVenueId]);
 
 
 
@@ -103,16 +110,15 @@ useEffect(() => {
       if (position) {
         const { latitude, longitude } = position;
         // Filter venue data based on proximity to current location
-        const nearbyVenues = venueData.venues.filter((venue) => {
-          const venueLocation = venue.venue_location;
-          if (venueLocation) {
+        const nearbyVenues = data.filter((venue) => {
+          if (venue.latitude && venue.longitude) {
             const distance = calculateDistance(
               latitude,
               longitude,
-              venueLocation.latitude,
-              venueLocation.longitude
+              venue.latitude,
+              venue.longitude
             );
-            console.log(`Distance to ${venue.venue_name}: ${distance} meters`);
+            console.log(`Distance to ${venue.place_name}: ${distance} meters`);
             return distance <= radius;
           }
           return false;
@@ -182,8 +188,10 @@ useEffect(() => {
   };
 
   //add review ()
-  const onAddReviewClick = () => {
-    navigation.navigate("CommentPage");
+  const onAddReviewClick = (venue_id, place_name) => {
+    //console.log(venue_id)
+    setSelectedVenueId(venue_id, place_name);
+    navigation.navigate("CommentPage", { venue_id, place_name });
   };
 
   return (
@@ -196,35 +204,51 @@ useEffect(() => {
           transformBehaviors={["billboard"]}
           onClickState={onClickState}
         >
-          
-          <ViroFlexView  style={styles.displayedVenueTitleBar} >
+          {/* <ViroFlexView style={styles.displayedVenueTitleBar}>
             <ViroText
-                text={`${venue.venue_type}:`}
-                fontSize={20}
-                position={[0, 0.5, -2]}
-                style={{ color: "white" }}
+              text={`${venue.venue_type}:`}
+              fontSize={20}
+              position={[0, 0.5, -2]}
+              style={{ color: "white" }}
             />
             <ViroText
-                style={styles.displayedVenueTitleBarText}
-                text={`${venue.venue_name}`}
-                position={[0, index * 0.5, -2]}
+              style={styles.displayedVenueTitleBarText}
+              text={`${venue.venue_name}`}
+              position={[0, index * 0.5, -2]}
             />
           </ViroFlexView>
-          
 
-          <ViroFlexView style={styles.displayedVenueAvgRatingBar} >
+          <ViroFlexView style={styles.displayedVenueAvgRatingBar}>
             <ViroText
               style={styles.displayedVenueAvgRatingBarText}
               text={`Average Rating: ${venue.venue_rating}, from ${venue.comments.length} Reviews`}
               position={[0, index * 0.5, -2]}
             />
-          </ViroFlexView>
+          </ViroFlexView> */}
 
-          <ViroFlexView style={styles.displayedReviewBody}>
-            <ViroText style={styles.displayedReviewBodyText} text={`${venue.comments[reviewIndex].comment_author}: ${venue.comments[reviewIndex].comment_body}`} />
-            <ViroText style={styles.displayedReviewRating} text={`${venue.comments[reviewIndex].comment_rating} Stars`} />
+          {/* <ViroFlexView style={styles.displayedReviewBody}>
+            <ViroText
+              style={styles.displayedReviewBodyText}
+              text={`${venue.comments[reviewIndex].comment_author}: ${venue.comments[reviewIndex].comment_body}`}
+            />
+            <ViroText
+              style={styles.displayedReviewRating}
+              text={`${venue.comments[reviewIndex].comment_rating} Stars`}
+            />
+          </ViroFlexView> */}
+          {/* Add review button */}
+          <ViroFlexView
+            style={styles.addReviewButton}
+            position={[2, -3.5, -12]}
+            onClickState={() =>
+              onAddReviewClick(venue.venue_id, venue.place_name)
+            } // Pass venue_id to the click handler
+          >
+            <ViroText
+              style={styles.addReviewButtonText}
+              text={"Add a Review 🗯"}
+            />
           </ViroFlexView>
-
         </ViroFlexView>
       ))}
 
@@ -233,17 +257,11 @@ useEffect(() => {
         position={[-2, -3.5, -12]}
         onClickState={onResetReviewsClick}
       >
-        <ViroText style={styles.mostRecentReviewButtonText} text={"⏪ Back to Top"} />
+        <ViroText
+          style={styles.mostRecentReviewButtonText}
+          text={"⏪ Back to Top"}
+        />
       </ViroFlexView>
-
-      <ViroFlexView
-        style={styles.addReviewButton}
-        position={[2, -3.5, -12]}
-        onClickState={onAddReviewClick}
-      >
-        <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
-      </ViroFlexView>
-
     </ViroARScene>
   );
 };

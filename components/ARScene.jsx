@@ -124,6 +124,7 @@ const ARScene = () => {
     
     <ViroARScene onTrackingUpdated={onInitialized}>
       {reviews.map((review, index) => (
+        
         <ViroFlexView
           style={styles.venueInfoAndReviewsContainer}
           key={index}
