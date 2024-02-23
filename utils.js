@@ -18,11 +18,6 @@ const deg2rad = (deg) => {
     return deg * (Math.PI / 180);
 };
 
-
-
-
-
-
 export const fetchVenues = () => {
   return fetch(`https://reviewar-be.onrender.com/api/venues`)
     .then((response) => {
@@ -56,11 +51,6 @@ export const fetchUsers = () => {
     })
     .then((data) => data.users);
 };
-
-
-
-
-
 
 export const postReviews = (
   venue_id,

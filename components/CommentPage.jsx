@@ -134,9 +134,12 @@ const { user_id, author, name } = currentUser;
                   style={{ width: 50, height: 50 }}
                 />
               </TouchableOpacity>
-
               <TouchableOpacity
-                onPress={handleNewCommentSubmit}
+                onPress={() =>
+                  Platform.OS === "ios"
+                    ? handleNewCommentSubmit && navigation.navigate("Home")
+                    : handleNewCommentSubmit && navigation.push("Home")
+                }
                 disabled={isPostingComment}
               >
                 <Image
