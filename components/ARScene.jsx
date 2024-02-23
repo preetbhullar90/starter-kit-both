@@ -18,7 +18,7 @@ const ARScene = () => {
 
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(1000);
+  const [radius, setRadius] = useState(100);
   const [reviews, setReviews] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
   console.log(reviews);
@@ -169,7 +169,6 @@ const ARScene = () => {
       >
         <ViroText style={styles.addReviewButtonText} text={"Add a Review 🗯"} />
       </ViroFlexView>
-
 
     </ViroARScene>
   );
