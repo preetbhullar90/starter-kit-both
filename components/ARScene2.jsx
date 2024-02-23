@@ -9,7 +9,7 @@ import {
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
 
-import { calculateDistance } from "../utils";
+import { calculateDistance, fetchReviews, fetchUsers, fetchVenues } from "../utils";
 
 //main styles component
 import styles from "../styles"
@@ -26,6 +26,77 @@ const ARScene2 = () => {
   const [radius, setRadius] = useState(14300);
   const [reviews, setReviews] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
+  const [data, setData] = useState([]);
+  const [venue_id, setVenueId] = useState(null);
+  const [users, setUsers] = useState([]);
+ const [newReviews, setNewReviews] = useState([]);
+
+
+  // const venueId = data.filter((venues) => {
+  //   return venues.venue_id;
+  // })[0];
+  // const id = venueId.venue_id;
+
+  // console.log(newReviews);
+
+
+useEffect(() => {
+  fetchVenues()
+    .then((response) => {
+      //console.log(response.venues, "response");
+      setData(response.venues);
+      setLoading(false);
+    })
+    .catch((error) => {
+      setError(error.response);
+      setLoading(false);
+    });
+
+  // fetchVenueById(venue_id)
+  //   .then((response) => {
+  //     console.log(response, "id");
+  //     setData1(response.venue);
+  //     setLoading(false);
+  //   })
+  //   .catch((error) => {
+  //     setError(error);
+  //     setLoading(false);
+  //   });
+
+
+   fetchReviews(3)
+     .then((response) => {
+       console.log(response.reviews)
+         setNewReviews(response.reviews);
+         setLoading(false);
+
+     })
+     .catch((error) => {
+       setError(error);
+       setLoading(false);
+     });
+  
+  
+
+  fetchUsers()
+    .then((response) => {
+      //console.log(response, "response");
+      setUsers(response);
+      setLoading(true);
+    })
+    .catch((error) => {
+      setError(error);
+      setLoading(false);
+    });
+}, []);
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     const fetchVenueData = async () => {

@@ -17,3 +17,89 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
 const deg2rad = (deg) => {
     return deg * (Math.PI / 180);
 };
+
+
+
+
+
+
+export const fetchVenues = () => {
+  return fetch(`https://reviewar-be.onrender.com/api/venues`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => data);
+};
+
+// export const fetchVenueById = (venue_id) => {
+//   return fetch(
+//     `https://reviewar-be.onrender.com/api/venues/${3}`
+//   ).then((response) => {
+//     return response.json();
+//   });
+// };
+
+export const fetchReviews = (venueId) => {
+  return fetch(`https://reviewar-be.onrender.com/api/venues/${venueId}/reviews`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      return response;
+    });
+};
+
+export const fetchUsers = () => {
+  return fetch(`https://reviewar-be.onrender.com/api/users`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => data.users);
+};
+
+
+
+
+
+
+export const postReviews = (
+  venue_id,
+  user_id,
+  author,
+  place_name,
+  body,
+  star_rating
+) => {
+  return fetch(`https://reviewar-be.onrender.com/api/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      venue_id,
+      user_id,
+      author,
+      place_name,
+      body,
+      star_rating,
+    }),
+  })
+    .then((response) => {
+      console.log(response.status);
+      if (!response.ok) {
+        throw new Error("Failed to post review");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle successful response
+      console.log(data, "data");
+      return data;
+    })
+    .catch((error) => {
+      // Handle fetch or JSON parsing errors
+      console.error("Error posting review:", error);
+      throw error;
+    });
+};
+

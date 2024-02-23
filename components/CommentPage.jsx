@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CurrentUserContext } from "./CurrentUser";
 import {
   Image,
   ImageBackground,
@@ -12,12 +13,55 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { fetchVenues, postReviews } from "../utils";
 
 const CommentPage = () => {
-  const [commentBody, setCommentBody] = useState("");
+  const [body, setCommentBody] = useState("");
+  const [star_rating, setRating] = useState("");
   const [showPostComment, setShowPostComment] = useState(true);
   const [isPostingComment, setIsPostingComment] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
   const navigation = useNavigation();
+
+
+
+const { currentUser } = useContext(CurrentUserContext);
+
+  const username = currentUser.username
+console.log(username)
+   const reviewObj = {
+     venue_id: 1,
+     user_id: 1,
+     author: "johnny123",
+     place_name: "Sunflower Fields",
+   };
+  
+  const venue_id = reviewObj.venue_id;
+  const user_id = 1;
+  const author = reviewObj.author;
+  const place_name = reviewObj.place_name;
+
+
+  
+  
+  
+  useEffect(() => {
+    fetchVenues()
+      .then((response) => {
+        //console.log(response.venues, "response");
+        setData(response.venues);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.response);
+        setLoading(false);
+      });
+  }, []);
+  
+  
+
 
   const togglePostComment = () => {
     setShowPostComment(!showPostComment);
@@ -27,6 +71,20 @@ const CommentPage = () => {
     // Handle submitting the comment
     setIsPostingComment(true);
     // Logic here to submit the comment
+
+     setLoading(true);
+     setError(null);
+     postReviews(venue_id, user_id, author, place_name, body, star_rating)
+       .then(() => {
+         setCommentBody("");
+         setRating("");
+         setLoading(false);
+         navigation.navigate("Home");
+       })
+       .catch((error) => {
+         setError(error);
+         setLoading(false);
+       });
   };
 
   return (
@@ -48,11 +106,20 @@ const CommentPage = () => {
               multiline={true}
               style={styles.input}
               placeholder="My Comment..."
-              value={commentBody}
+              value={body}
               onChangeText={setCommentBody}
               editable={!isPostingComment}
               numberOfLines={10}
             />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Rating"
+              value={star_rating}
+              onChangeText={setRating}
+              editable={!isPostingComment}
+            />
+
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 onPress={() =>
