@@ -1,95 +1,51 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Pressable } from "react-native";
-import { useContext, useState } from 'react';
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  ImageBackground,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler"; //  TouchableOpacity button to Explore Later...
+import { useNavigation } from "@react-navigation/native";
+
+//main styles file
+import styles from "../styles"
+
+//IMPORT CONTEXT FUNCTIONALITY AND CURRENTUSER CONTEXT
+import { useContext } from 'react';
 import { CurrentUserContext } from "./CurrentUser";
 
-
 const WelcomePage = ({ onStartAR, onFakeAR }) => {
+
+  //GRAB CONTEXT
   const { currentUser } = useContext(CurrentUserContext);
   const userFirstName = currentUser.name.split(" ")[0];
+
+  //Go to switch user page
+  const navigation = useNavigation();
+  const onSwitchUserClick = () => {
+    navigation.navigate("SwitchUser");
+  };
+
   return (
-    <View style={styles.container}>
-      <Image source={require('../_media_/review-ar-03.png')} style={styles.logo} />
-      
-      <Text style={styles.subtitle}>Discover Places Near You</Text>
-      <Text style={styles.subtitle}>{`Welcome, ${userFirstName}!`}</Text>
-
-      <View style={styles.buttonGroupContainer}>
-        
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity onPress={onStartAR}>
-            <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
-          </TouchableOpacity>
-          <Pressable style={styles.button} onPress={onStartAR}>
-            <Text style={styles.text}>START {'\n'}(Google API)</Text>
-          </Pressable>
-        </View>
-
-        
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity onPress={onFakeAR}>
-            <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
-          </TouchableOpacity>
-          <Pressable style={styles.button} onPress={onFakeAR}>
-            <Text style={styles.text}>START {'\n'}(Own API)</Text>
-          </Pressable>
-
-        </View>
+    <ImageBackground
+      source={require("../_media_/background-02.jpg")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.welcomeText}>{`Welcome ${userFirstName}...`}</Text>
+        <Button title="Change user" color="yellow" onPress={onSwitchUserClick}/>
+        <Image
+          source={require("../_media_/review-ar-04.png")}
+          style={styles.logoImage}
+        />
+        <Button style={styles.startARButton} title="Start with Google-API!" onPress={onStartAR} />
+        <Button style={styles.startARButton} title="Start with Own-API!" onPress={onFakeAR} />
       </View>
-    </View>
+    </ImageBackground>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2E3B4E",
-  },
-  appName: {
-    color: '#FFFFFF',
-    fontSize: 40,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  subtitle: {
-    color: '#8F9BB3',
-    fontSize: 18,
-    marginBottom: 15,
-  },
-  arIcon: {
-    width: 75,
-    height: 75,
-    marginTop: 25,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 3,
-    paddingHorizontal: 5,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'green',
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-    textAlign:"center"
-  },
-  buttonGroupContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    width: '80%', 
-    marginTop: 15, 
-  },
-  buttonGroup: {
-    flex: 1,
-    alignItems: 'center', 
-  },
-});
 
 
 export default WelcomePage;

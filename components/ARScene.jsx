@@ -4,14 +4,12 @@ import {
   ViroARScene,
   ViroFlexView,
   ViroText,
-  ViroTrackingStateConstants,
-  Viro3DObject,
-  ViroImage
+  ViroTrackingStateConstants
 } from "@viro-community/react-viro";
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
 
-//main styles component
+//main styles file
 import styles from "../styles"
 
 // Main AR Scene component

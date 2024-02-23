@@ -47,7 +47,7 @@ const CommentPage = () => {
             <TextInput
               multiline={true}
               style={styles.input}
-              placeholder="My Comment..."
+              placeholder="This place is too square..."
               value={commentBody}
               onChangeText={setCommentBody}
               editable={!isPostingComment}

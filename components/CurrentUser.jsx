@@ -1,3 +1,4 @@
+//IMPORT CONTEXT AND CREATE IT
 import React, { createContext, useState } from 'react';
 
 export const CurrentUserContext = createContext();
