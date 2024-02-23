@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { calculateDistance } from "../utils";
 
-//main styles component
+//main styles file
 import styles from "../styles"
 
 // Import Fake(OWN) venue data

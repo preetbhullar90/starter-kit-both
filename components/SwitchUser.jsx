@@ -1,12 +1,17 @@
 import React, { useEffect, useContext, useState} from "react";
-
 import {
     View,
     Text,
-    ScrollView
+    ScrollView,
+    Button
   } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "./CurrentUser";
+import { UserList } from "./UserList";
+
+//main styles file
+import styles from "../styles"
+
 
 const SwitchUser = () => {
 
@@ -32,25 +37,31 @@ const SwitchUser = () => {
         })
     }, [])
 
-    //HANDLE THE SCROLLVIEW FUNCTIONALITY
-    const handleScroll = (event) => {
-      const offsetY = event.nativeEvent.contentOffset.y;
-      const itemHeight = 50;
-      const index = Math.floor(offsetY / itemHeight);
-      setSelectedItem(availableUsers[index]);
+    //HANDLE CLICKING HOME BUTTON
+    const navigation = useNavigation();
+    const onGoHomeClick = () => {
+        navigation.navigate("Home");
     };
 
+  
+
     return (
-        <View>
-            <Text>{`You are currently logged in as ${currentUser.username}. Switch account below.`}</Text>
-            <ScrollView onScroll={handleScroll}>
-                {availableUsers.map((user, index) => (
-                    <Text key={index}>{user.username}</Text>
-                ))}
-            </ScrollView>
+        <View style={styles.switchUserPageBackground}> 
+            <Text style={styles.SwitchUserPageText}>{`You are currently logged in as ${currentUser.username}. Switch account below or click the button to go back.`}</Text>
+            <Button title="Back" color="yellow" onPress={onGoHomeClick} />
+            <UserList availableUsers={availableUsers} />
         </View>
     )
 
 }
 
 export default SwitchUser;
+
+
+  //HANDLE THE SCROLLVIEW FUNCTIONALITY
+  const handleScroll = (event) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const itemHeight = 50;
+    const index = Math.floor(offsetY / itemHeight);
+    setSelectedItem(availableUsers[index]);
+  };

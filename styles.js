@@ -1,14 +1,50 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+/////////////DEFAULT VIRO STYLING/////////////////
     helloWorldTextStyle: {
         fontStyle: "bold",
         fontSize: 20,
         color: "#000",
         textAlign: "center",
     },
+////////////WELCOME PAGE STYLING//////////////
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+    },
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+    },
+    welcomeText: {
+        color: "white",
+        fontSize: 24,
+        fontWeight: "bold",
+        position: "absolute",
+        top: 20,
+        left: 20,
+    },
+    logoImage: {
+        marginTop: 60,
+    },
+    startARButton: {
+        color: "black"
+    },
+///////////////SWITCH USER PAGE STYLING///////////
+
+    switchUserPageBackground: {
+        backgroundColor: "blue",
+    },
+    switchUserPageText: {
+        color: "white",
+        fontSize: 20,
+    },
 
 
+////////////AR ELEMENTS STYLING///////////////////
     venueInfoAndReviewsContainer: {
         height: 4,
         width: 6,
