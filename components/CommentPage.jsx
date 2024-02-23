@@ -101,7 +101,7 @@ const { user_id, author, name } = currentUser;
           />
         </TouchableOpacity>
 
-        {showPostComment && (
+{showPostComment && (
           <View style={styles.formContainer}>
             <TextInput
               multiline={true}

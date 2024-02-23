@@ -16,8 +16,9 @@ import {
   fetchVenues,
 } from "../utils";
 
-//main styles component
 import styles from "../styles";
+
+
 
 const ARScene2 = () => {
   const navigation = useNavigation();

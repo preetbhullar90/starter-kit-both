@@ -6,6 +6,7 @@ import { StyleSheet, View, Platform } from "react-native";
 
 import WelcomePage from "./components/WelcomePage";
 import CommentPage from "./components/CommentPage";
+import SwitchUser from "./components/SwitchUser";
 import ARScene from "./components/ARScene";
 import ARScene2 from "./components/ARScene2";
 
@@ -14,6 +15,8 @@ import MapView, { Marker, Circle } from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 
 const Stack = createStackNavigator();
+
+
 
 // Main App component
 const App = () => {
@@ -149,6 +152,25 @@ const App = () => {
             }),
           }}
         />
+
+        <Stack.Screen 
+          name="SwitchUser"
+          component={SwitchUser}
+          options={{
+            ...Platform.select({
+              ios: {
+                headerShown: true,
+                headerTitle: "Add a review",
+                gestureEnabled: true,
+              },
+              android: {
+                headerShown: false,
+                gestureEnabled: true,
+              },
+            }),
+          }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
