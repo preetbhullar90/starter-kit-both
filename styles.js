@@ -52,18 +52,16 @@ const styles = StyleSheet.create({
         opacity: 0.7
     },
     displayedVenueTitleBar: {
-        flex: 0.2,
+        flex: 0.5,
         flexDirection: "row",
         backgroundColor: "navy"
     },
     displayedVenueTitleBarText: {
         color: "white",
-        flex: 1,
         flexDirection: "row",
-        textAlignVertical: "center",
         textAlignHorizontal: "center",
         textAlign: "center",
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: "bold"
     },
 //////////////////////////
@@ -151,61 +149,93 @@ const styles = StyleSheet.create({
 
 ////////////////////////////
     displayedVenueAvgRatingBarText: {
-        color: "white",
-        flex: 1,
-        textAlignVertical: "center",
+        color: "black",
         textAlign: "center",
-        fontSize: 30
+        fontSize: 15
     },
     displayedReviewBody: {
-        flex: 1,
+        flex: 2,// edit here to give more space if needed. but make sure it doesnt overlap.
         flexDirection: "row",
         backgroundColor: "white"
     },
     displayedReviewBodyText: {
         color: "black",
-        flex: 0.8,
-        flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
         fontSize: 30
     },
 
-    displayedReviewRating: {
-        color: "black",
-        flex: 0.2,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily:"",
-        fontSize: 30
-    },
-    mostRecentReviewButton: {
-        height: 1.5,
-        width: 1.5,
-        backgroundColor: "black",
-        opacity: 0.7
-    },
-    mostRecentReviewButtonText: {
-        color: "white",
-        flex: 1,
-        textAlignVertical: "center",
-        textAlign: "center",
-        fontSize: 30
-    },
-    addReviewButton: {
-        height: 1.5,
-        width: 2.5,
-        backgroundColor: "green",
-        opacity: 0.7
-    },
-    addReviewButtonText: {
-        color: "black",
-        flex: 1,
-        textAlignVertical: "center",
-        textAlign: "center",
-        fontSize: 30
-    }
-  });
+    // displayedReviewRating: {
+    //     color: "black",
+    //     flex: 0.1,
+    //     flexDirection: "row",
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    //     fontFamily:"",
+    //     fontSize: 30
+    // },
 
-  module.exports = styles;
+//BUTTON BAR --
+  buttonBar: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    backgroundColor: "black"
+    // backgroundColor:"white" // setting to white makes it look greyed out
+  }, 
+  
+  //ADD REVIEW BUTTON
+  addReviewButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "green",
+    opacity: 0.7,
+  },
+  addReviewButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 30,
+  },  
+  //BLANK BUTTON _ANOTHER
+  anotherOneButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "blue",
+    opacity: 0.7,
+  },
+  anotherOneButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 30,
+  },
+  
+  //BACK TO TOP BUTTON
+  mostRecentReviewButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "black",
+    opacity: 0.7,
+  },
+  mostRecentReviewButtonText: {
+    color: "white",
+    
+    textAlign: "center",
+    fontSize: 30,
+  },
+  //NEXTT BUTTON
+  displayedNextReviewButton: {
+    color: "Blue",
+    height: 1,
+    width: 1.5,
+    backgroundColor: "red",
+    fontSize: 25,
+  },
+  displayedReviewNextButtonText: {
+    color: "white",
+    
+    textAlign: "center",
+    fontSize: 30,
+  },
+});
+
+module.exports = styles;
