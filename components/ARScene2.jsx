@@ -190,60 +190,83 @@ const ARScene2 = () => {
     navigation.navigate("CommentPage", { venue_id, place_name });
   };
 
+   // decide styling of the average rating bar ()
+   const getRatingStyle = (venue) => {
+    const rating = parseFloat(venue.average_star_rating);
+    if (rating >= 1 && rating < 2.1) {
+      return styles.displayedVenueAvgRatingBarRed;
+    } else if (rating >= 2.1 && rating < 3.1) {
+      return styles.displayedVenueAvgRatingBarOrange;
+    } else if (rating >= 3.1 && rating < 4.1) {
+      return styles.displayedVenueAvgRatingBarYellow;
+    } else if (rating >= 4.1 && rating < 5) {
+      return styles.displayedVenueAvgRatingBarLightGreen;
+    } else {
+      return styles.displayedVenueAvgRatingBarGreen;
+    }
+  };
+
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
       {nearbyVenues &&
         nearbyVenues.length > 0 &&
         reviews.length > 0 &&
         nearbyVenues.map((venue, index) => (
-          <ViroFlexView
-            style={styles.venueInfoAndReviewsContainer}
-            key={index}
-            position={[index * -10, 0, -10]}
-            transformBehaviors={["billboard"]}
-            onClickState={onClickState}
-          >
-            <ViroFlexView style={styles.displayedVenueTitleBar}>
-              <ViroText
-                text={`${venue.venue_id}:`}
-                fontSize={20}
-                position={[0, 0.5, -2]}
-                style={{ color: "white" }}
-              />
-              <ViroText
-                style={styles.displayedVenueTitleBarText}
-                text={`${venue.place_name}`}
-                position={[0, index * 0.5, -2]}
-              />
-            </ViroFlexView>
 
-            <ViroFlexView style={styles.displayedVenueAvgRatingBar}>
-              <ViroText
-              style={styles.displayedVenueAvgRatingBarText}
-              text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
+            // THE MAIN REVIEW CARD CONTAINER
+              <ViroFlexView
+                style={styles.venueInfoAndReviewsContainer}
+                key={index}
+                position={[0, 0, -10]}
+                transformBehaviors={["billboard"]}
+                onClickState={onClickState}
+              >
+
+              
+            {/* THE PARTICULAR VENUE NAME HEADER */}
+          <ViroFlexView  style={styles.displayedVenueTitleBar} >
+            <ViroText
+              style={styles.displayedVenueTitleBarText}
+              text={`${venue.place_name}`}
               position={[0, index * 0.5, -2]}
             />
           </ViroFlexView>
 
-          <ViroFlexView style={styles.displayedReviewBody}>
+          {/* THE AVERAGE RATING VISUAL */}
+          <ViroFlexView style={styles.displayedReviewAvgRatingVisual} >
+            <ViroFlexView style={styles.avg1Star} />
+            {parseInt(venue.average_star_rating) >= 2 && <ViroFlexView style={styles.avg2Star} />}
+            {parseInt(venue.average_star_rating) >= 3 && <ViroFlexView style={styles.avg3Star} />}
+            {parseInt(venue.average_star_rating) >= 4 && <ViroFlexView style={styles.avg4Star} />}
+            {parseInt(venue.average_star_rating) === 5 && <ViroFlexView style={styles.avg5Star} />}
+          </ViroFlexView>
+
+          {/* THE AVERAGE RATING TEXT BAR */}
+          <ViroFlexView style={[getRatingStyle(venue)]}>
             <ViroText
-              style={styles.displayedReviewBodyText}
-              text={`${reviews[reviewIndex].author}: ${reviews[reviewIndex].body}`}
+            style={styles.displayedVenueAvgRatingBarText}
+            text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
+            position={[0, index * 0.5, -2]}
             />
-            <ViroText
-              style={styles.displayedReviewRating}
-              text={`${reviews[reviewIndex].star_rating} Stars`}
-            />
-            </ViroFlexView>
+          </ViroFlexView>
+
+         {/* THE REVIEW BODY AND INDIVIDUAL REVIEW RATING */}
+         <ViroFlexView style={styles.displayedReviewBody}>
+            <ViroText style={styles.displayedReviewBodyText} text={`${reviews[reviewIndex].author}: ${reviews[reviewIndex].body}`} />
+            <ViroText style={styles.displayedReviewRating} text={`${reviews[reviewIndex].star_rating} Stars`} />
+          </ViroFlexView>
+
+    
+          {/* THE BUTTONS */}
             <ViroFlexView
               style={styles.mostRecentReviewButton}
               position={[-2, -4, -3]}
               onClickState={onResetReviewsClick}
             >
-              <ViroText
-                style={styles.mostRecentReviewButtonText}
-                text={"Back to Top"}
-              />
+            <ViroText
+              style={styles.mostRecentReviewButtonText}
+              text={"Back to Top"}
+            />
             </ViroFlexView>
 
             <ViroFlexView
