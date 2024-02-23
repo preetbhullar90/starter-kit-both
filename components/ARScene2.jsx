@@ -22,11 +22,9 @@ const ARScene2 = () => {
   const navigation = useNavigation();
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(300);
+  const [radius, setRadius] = useState(30);
   const [venues, setVenues] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
-  const [data, setData] = useState([]);
-  const [venue_id, setVenueId] = useState(null);
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [nearbyVenues, setNearbyVenues] = useState([]);
@@ -95,7 +93,7 @@ const ARScene2 = () => {
         const { latitude, longitude } = position;
         // Filter venue data based on proximity to current location
         const nearbyVenues = venues.filter((venue) => {
-          console.log("Nearby Venue ==> ", venue);
+
           if (venue.latitude && venue.longitude) {
             const distance = calculateDistance(
               latitude,
@@ -103,13 +101,13 @@ const ARScene2 = () => {
               venue.latitude,
               venue.longitude
             );
-            // console.log(`Distance to ${venue.place_name}: ${distance} meters`);
+
             return distance <= radius;
           }
           return false;
         });
-        console.log("Nearby>>>", nearbyVenues);
         setNearbyVenues(nearbyVenues);
+        console.log('Nearby >>> ', nearbyVenues);
         fetchReviews(nearbyVenues[0].venue_id).then(({reviews}) => {
           setReviews(reviews)
            //console.log(reviews)
