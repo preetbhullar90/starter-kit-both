@@ -4,9 +4,11 @@ import {
   Text,
   Button,
   Image,
+  Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler"; //  TouchableOpacity button to Explore Later...
+
 import { useNavigation } from "@react-navigation/native";
 
 //main styles file
@@ -28,24 +30,40 @@ const WelcomePage = ({ onStartAR, onFakeAR }) => {
     navigation.navigate("SwitchUser");
   };
 
-  return (
-    <ImageBackground
-      source={require("../_media_/background-02.jpg")}
-      style={styles.backgroundImage}
-    >
-      <View style={styles.container}>
-        <Text style={styles.welcomeText}>{`Welcome ${userFirstName}...`}</Text>
-        <Button title="Change user" color="yellow" onPress={onSwitchUserClick}/>
-        <Image
-          source={require("../_media_/review-ar-04.png")}
-          style={styles.logoImage}
-        />
-        <Button style={styles.startARButton} title="Start with Google-API!" onPress={onStartAR} />
-        <Button style={styles.startARButton} title="Start with Own-API!" onPress={onFakeAR} />
+
+return (
+ 
+  <View style={styles.container}>
+    
+    <Image source={require('../_media_/review-ar-03.png')} style={styles.logo} />
+
+    <Text style={styles.subtitle}>Discover Places Near You</Text>
+    <Text style={styles.subtitle}>{`Welcome, ${userFirstName}!`}</Text>
+    <Button title="Change user" color="yellow" onPress={onSwitchUserClick}/>
+    <View style={styles.buttonGroupContainer}>
+
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity onPress={onStartAR}>
+          <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
+        </TouchableOpacity>
+        <Pressable style={styles.button} onPress={onStartAR}>
+          <Text style={styles.text}>START {'\n'}(Google API)</Text>
+        </Pressable>
       </View>
-    </ImageBackground>
-  );
+
+
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity onPress={onFakeAR}>
+          <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
+        </TouchableOpacity>
+        <Pressable style={styles.button} onPress={onFakeAR}>
+          <Text style={styles.text}>START {'\n'}(Own API)</Text>
+        </Pressable>
+
+      </View>
+    </View>
+  </View>
+    
+);
 };
-
-
 export default WelcomePage;

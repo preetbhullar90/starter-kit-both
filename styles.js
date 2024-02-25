@@ -9,30 +9,62 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 ////////////WELCOME PAGE STYLING//////////////
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-    },
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "transparent",
-    },
-    welcomeText: {
-        color: "white",
-        fontSize: 24,
-        fontWeight: "bold",
-        position: "absolute",
-        top: 20,
-        left: 20,
-    },
-    logoImage: {
-        marginTop: 60,
-    },
-    startARButton: {
-        color: "black"
-    },
+// backgroundImage: {
+//   flex:1,
+//   resizeMode:"cover"
+// },
+
+container: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#2E3B4E",
+},
+
+appName: {
+  color: '#FFFFFF',
+  fontSize: 40,
+  fontWeight: 'bold',
+  marginBottom: 15,
+},
+subtitle: {
+  color: '#8F9BB3',
+  fontSize: 18,
+  marginBottom: 15,
+},
+arIcon: {
+  width: 75,
+  height: 75,
+  marginTop: 25,
+},
+button: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 3,
+  paddingHorizontal: 5,
+  borderRadius: 4,
+  elevation: 3,
+  backgroundColor: 'green',
+},
+text: {
+  fontSize: 16,
+  lineHeight: 21,
+  fontWeight: 'bold',
+  letterSpacing: 0.25,
+  color: 'white',
+  textAlign:"center"
+},
+buttonGroupContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-between', 
+  width: '80%', 
+  marginTop: 15, 
+},
+buttonGroup: {
+  flex: 1,
+  alignItems: 'center', 
+},
+
 ///////////////SWITCH USER PAGE STYLING///////////
 
     switchUserPageBackground: {
