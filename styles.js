@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
+
 const styles = StyleSheet.create({
 /////////////DEFAULT VIRO STYLING/////////////////
     helloWorldTextStyle: {
@@ -67,12 +69,69 @@ buttonGroup: {
 
 ///////////////SWITCH USER PAGE STYLING///////////
 
-    switchUserPageBackground: {
-        backgroundColor: "blue",
+    switchUserPageContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#a5d8fd'
     },
+
+    switchUserPageHeader: {
+      position: 'absolute',
+      top: 20,
+      left: 20,
+    },
+
+    switchUserPageContent: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
     switchUserPageText: {
-        color: "white",
-        fontSize: 20,
+      textAlign: 'center',
+      marginBottom: 20,
+      padding: 10,
+      color: 'white',
+      fontSize: 15,
+      fontFamily: 'LemonMilkRegular',
+    },
+
+    // userListContainer: {
+    //   width: '80%', // Adjust the width as per your requirement
+    //   borderWidth: 10,
+    //   borderColor: '#545fb2',
+    //   borderRadius: 0,
+    //   padding: 0,
+    //   flexDirection: 'row'
+    // },
+
+    userListContainer: {
+      width: '80%', // Adjust the width as per your requirement
+      borderWidth: 1,
+      borderColor: 'a5d8fd',
+      borderRadius: 0,
+      padding: 10,
+      marginTop: 20, // Add margin top as needed
+      height: 100, // Specify the height of the ScrollView container
+    },
+    userListScrollContainer: {
+      alignItems: 'center',
+    },
+
+    userCard: {
+      borderWidth: 2,
+      borderColor: '#545fb2',
+      backgroundColor: '#a3adf2',
+      height: 50
+    },
+    userCardText: {
+      textAlign: 'center',
+      fontFamily: 'LemonMilkRegular',
+      fontWeight: 'bold',
+      fontSize: 20,
+      color: 'white',
+      padding: 5
     },
 
 
@@ -136,18 +195,8 @@ buttonGroup: {
     },
 
 
-////////////////////////////
-    // displayedVenueAvgRatingBar: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //     backgroundColor: "yellow"
-    // },
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED)
 
-
-    // displayedVenueAvgRatingBarBase: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //   },
       displayedVenueAvgRatingBarRed: {
         flex: 0.25,
         flexDirection: "row",
@@ -173,11 +222,6 @@ buttonGroup: {
         flexDirection: "row",
         backgroundColor: "rgb(0, 128, 0)", // Green
       },
-
-
-
-
-
 
 ////////////////////////////
     displayedVenueAvgRatingBarText: {
