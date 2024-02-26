@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
+
 const styles = StyleSheet.create({
 /////////////DEFAULT VIRO STYLING/////////////////
     helloWorldTextStyle: {
@@ -9,38 +11,127 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 ////////////WELCOME PAGE STYLING//////////////
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-    },
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "transparent",
-    },
-    welcomeText: {
-        color: "white",
-        fontSize: 24,
-        fontWeight: "bold",
-        position: "absolute",
-        top: 20,
-        left: 20,
-    },
-    logoImage: {
-        marginTop: 60,
-    },
-    startARButton: {
-        color: "black"
-    },
+// backgroundImage: {
+//   flex:1,
+//   resizeMode:"cover"
+// },
+
+container: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#2E3B4E",
+},
+
+appName: {
+  color: '#FFFFFF',
+  fontSize: 40,
+  fontWeight: 'bold',
+  marginBottom: 15,
+},
+subtitle: {
+  color: '#8F9BB3',
+  fontSize: 18,
+  marginBottom: 15,
+},
+arIcon: {
+  width: 75,
+  height: 75,
+  marginTop: 25,
+},
+button: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 3,
+  paddingHorizontal: 5,
+  borderRadius: 4,
+  elevation: 3,
+  backgroundColor: 'green',
+},
+text: {
+  fontSize: 16,
+  lineHeight: 21,
+  fontWeight: 'bold',
+  letterSpacing: 0.25,
+  color: 'white',
+  textAlign:"center"
+},
+buttonGroupContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-between', 
+  width: '80%', 
+  marginTop: 15, 
+},
+buttonGroup: {
+  flex: 1,
+  alignItems: 'center', 
+},
+
 ///////////////SWITCH USER PAGE STYLING///////////
 
-    switchUserPageBackground: {
-        backgroundColor: "blue",
+    switchUserPageContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#a5d8fd'
     },
+
+    switchUserPageHeader: {
+      position: 'absolute',
+      top: 20,
+      left: 20,
+    },
+
+    switchUserPageContent: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
     switchUserPageText: {
-        color: "white",
-        fontSize: 20,
+      textAlign: 'center',
+      marginBottom: 20,
+      padding: 10,
+      color: 'white',
+      fontSize: 15,
+      fontFamily: 'LemonMilkRegular',
+    },
+
+    // userListContainer: {
+    //   width: '80%', // Adjust the width as per your requirement
+    //   borderWidth: 10,
+    //   borderColor: '#545fb2',
+    //   borderRadius: 0,
+    //   padding: 0,
+    //   flexDirection: 'row'
+    // },
+
+    userListContainer: {
+      width: '80%', // Adjust the width as per your requirement
+      borderWidth: 1,
+      borderColor: 'a5d8fd',
+      borderRadius: 0,
+      padding: 10,
+      marginTop: 20, // Add margin top as needed
+      height: 100, // Specify the height of the ScrollView container
+    },
+    userListScrollContainer: {
+      alignItems: 'center',
+    },
+
+    userCard: {
+      borderWidth: 2,
+      borderColor: '#545fb2',
+      backgroundColor: '#a3adf2',
+      height: 50
+    },
+    userCardText: {
+      textAlign: 'center',
+      fontFamily: 'LemonMilkRegular',
+      fontWeight: 'bold',
+      fontSize: 20,
+      color: 'white',
+      padding: 5
     },
 
 
@@ -52,18 +143,16 @@ const styles = StyleSheet.create({
         opacity: 0.7
     },
     displayedVenueTitleBar: {
-        flex: 0.2,
+        flex: 0.5,
         flexDirection: "row",
         backgroundColor: "navy"
     },
     displayedVenueTitleBarText: {
         color: "white",
-        flex: 1,
         flexDirection: "row",
-        textAlignVertical: "center",
         textAlignHorizontal: "center",
         textAlign: "center",
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: "bold"
     },
 //////////////////////////
@@ -106,18 +195,8 @@ const styles = StyleSheet.create({
     },
 
 
-////////////////////////////
-    // displayedVenueAvgRatingBar: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //     backgroundColor: "yellow"
-    // },
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED)
 
-
-    // displayedVenueAvgRatingBarBase: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //   },
       displayedVenueAvgRatingBarRed: {
         flex: 0.25,
         flexDirection: "row",
@@ -144,68 +223,95 @@ const styles = StyleSheet.create({
         backgroundColor: "rgb(0, 128, 0)", // Green
       },
 
-
-
-
-
-
 ////////////////////////////
     displayedVenueAvgRatingBarText: {
-        color: "white",
-        flex: 1,
-        textAlignVertical: "center",
+        color: "black",
         textAlign: "center",
-        fontSize: 30
+        fontSize: 15
     },
     displayedReviewBody: {
-        flex: 1,
+        flex: 2,// edit here to give more space if needed. but make sure it doesnt overlap.
         flexDirection: "row",
         backgroundColor: "white"
     },
     displayedReviewBodyText: {
         color: "black",
-        flex: 0.8,
-        flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
         fontSize: 30
     },
 
-    displayedReviewRating: {
-        color: "black",
-        flex: 0.2,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily:"",
-        fontSize: 30
-    },
-    mostRecentReviewButton: {
-        height: 1.5,
-        width: 1.5,
-        backgroundColor: "black",
-        opacity: 0.7
-    },
-    mostRecentReviewButtonText: {
-        color: "white",
-        flex: 1,
-        textAlignVertical: "center",
-        textAlign: "center",
-        fontSize: 30
-    },
-    addReviewButton: {
-        height: 1.5,
-        width: 2.5,
-        backgroundColor: "green",
-        opacity: 0.7
-    },
-    addReviewButtonText: {
-        color: "black",
-        flex: 1,
-        textAlignVertical: "center",
-        textAlign: "center",
-        fontSize: 30
-    }
-  });
+    // displayedReviewRating: {
+    //     color: "black",
+    //     flex: 0.1,
+    //     flexDirection: "row",
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    //     fontFamily:"",
+    //     fontSize: 30
+    // },
 
-  module.exports = styles;
+//BUTTON BAR --
+  buttonBar: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    backgroundColor: "black"
+    // backgroundColor:"white" // setting to white makes it look greyed out
+  }, 
+  
+  //ADD REVIEW BUTTON
+  addReviewButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "green",
+    opacity: 0.7,
+  },
+  addReviewButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 30,
+  },  
+  //BLANK BUTTON _ANOTHER
+  anotherOneButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "blue",
+    opacity: 0.7,
+  },
+  anotherOneButtonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 30,
+  },
+  
+  //BACK TO TOP BUTTON
+  mostRecentReviewButton: {
+    height: 1,
+    width: 1.5,
+    backgroundColor: "black",
+    opacity: 0.7,
+  },
+  mostRecentReviewButtonText: {
+    color: "white",
+    
+    textAlign: "center",
+    fontSize: 30,
+  },
+  //NEXTT BUTTON
+  displayedNextReviewButton: {
+    color: "Blue",
+    height: 1,
+    width: 1.5,
+    backgroundColor: "red",
+    fontSize: 25,
+  },
+  displayedReviewNextButtonText: {
+    color: "white",
+    
+    textAlign: "center",
+    fontSize: 30,
+  },
+});
+
+module.exports = styles;

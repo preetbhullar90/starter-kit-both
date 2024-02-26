@@ -217,12 +217,11 @@ const ARScene2 = () => {
               <ViroFlexView
                 style={styles.venueInfoAndReviewsContainer}
                 key={index}
-                position={[0, 0, -10]}
+                position={[0, index * -4, -10]}
                 transformBehaviors={["billboard"]}
-                onClickState={onClickState}
+                
               >
 
-              
             {/* THE PARTICULAR VENUE NAME HEADER */}
           <ViroFlexView  style={styles.displayedVenueTitleBar} >
             <ViroText
@@ -246,43 +245,68 @@ const ARScene2 = () => {
             <ViroText
             style={styles.displayedVenueAvgRatingBarText}
             text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
-            position={[0, index * 0.5, -2]}
+          
             />
           </ViroFlexView>
 
          {/* THE REVIEW BODY AND INDIVIDUAL REVIEW RATING */}
          <ViroFlexView style={styles.displayedReviewBody}>
-            <ViroText style={styles.displayedReviewBodyText} text={`${reviews[reviewIndex].author}: ${reviews[reviewIndex].body}`} />
-            <ViroText style={styles.displayedReviewRating} text={`${reviews[reviewIndex].star_rating} Stars`} />
+          
+            <ViroText style={styles.displayedReviewBodyText} 
+            text={` ${reviews[reviewIndex].author}  rated  ${reviews[reviewIndex].star_rating} Stars \n ${reviews[reviewIndex].body}`} />
+
           </ViroFlexView>
 
     
-          {/* THE BUTTONS */}
-            <ViroFlexView
-              style={styles.mostRecentReviewButton}
-              position={[-2, -4, -3]}
-              onClickState={onResetReviewsClick}
-            >
-            <ViroText
-              style={styles.mostRecentReviewButtonText}
-              text={"Back to Top"}
-            />
-            </ViroFlexView>
+         {/* bigdady button bar */}
+         <ViroFlexView style={styles.buttonBar}>
 
+            {/* ADD REVIEW BUTTON */}
             <ViroFlexView
               style={styles.addReviewButton}
-              position={[2, -4, -3]}
-              onClickState={() =>
-                onAddReviewClick(venue.venue_id, venue.place_name)
-              }
+              onClickState={onAddReviewClick}
             >
               <ViroText
                 style={styles.addReviewButtonText}
                 text={"Add a Review"}
               />
+            </ViroFlexView> 
+
+            {/* BLANK BUTTTON*/}
+            <ViroFlexView
+              style={styles.anotherOneButton}
+              // onClickState={onResetReviewsClick}
+            >
+              <ViroText
+                style={styles.anotherOneButtonText}
+                text={"Another One"}
+              />
             </ViroFlexView>
+
+            {/* BACK TO TOP BUTTON */}
+            <ViroFlexView
+              style={styles.mostRecentReviewButton}
+              onClickState={onResetReviewsClick}
+            >
+              <ViroText
+                style={styles.mostRecentReviewButtonText}
+                text={"Back to Top"}
+              />
+            </ViroFlexView>
+          
+             {/* NEXT BUTTON */}
+            <ViroFlexView style={styles.displayedNextReviewButton}>
+              <ViroText
+                style={styles.displayedReviewNextButtonText}
+                text={`Next Review >`}
+                onClickState={onClickState}
+              />
+            </ViroFlexView>
+
           </ViroFlexView>
-        ))}
+
+        </ViroFlexView>
+      ))}
     </ViroARScene>
   );
 };
