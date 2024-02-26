@@ -78,20 +78,16 @@ buttonGroup: {
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     switchUserPageHeader: {
       position: 'absolute',
       top: 20,
       left: 20,
     },
-
     switchUserPageContent: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    
     },
-
     switchUserPageText: {
       textAlign: 'center',
       fontSize: 20,
@@ -102,20 +98,18 @@ buttonGroup: {
       fontSize: 15,
       fontFamily: 'LemonMilkRegular',
     },
-
     userListContainer: {
       width: '90%',
       borderWidth: 1,
       borderColor: 'white',
       borderRadius: 0,
       padding: 10,
-      marginTop: 20, // Add margin top as needed
-      height: 100, // Specify the height of the ScrollView container
+      marginTop: 20,
+      height: 100,
     },
     userListScrollContainer: {
       alignItems: 'center',
     },
-
     userCard: {
       borderWidth: 2,
       borderColor: 'rgba(84, 95, 178, 0)',
@@ -194,7 +188,7 @@ buttonGroup: {
     },
 
 
-////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED)
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED) STYLING
 
       displayedVenueAvgRatingBarRed: {
         flex: 0.25,
@@ -238,16 +232,6 @@ buttonGroup: {
         alignItems: "center",
         fontSize: 30
     },
-
-    // displayedReviewRating: {
-    //     color: "black",
-    //     flex: 0.1,
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     fontFamily:"",
-    //     fontSize: 30
-    // },
 
 //BUTTON BAR --
   buttonBar: {
