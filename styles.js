@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+https://github.com/KelvinUng1/ReviewAR-fe/pull/21/conflict?name=styles.js&ancestor_oid=c145042fe6cd13dee04b459e60d0843f9ed60a21&base_oid=ab98d8c2739aa278553f14bacadf922074409a3b&head_oid=dac0f2d380a3b7b23e6f36d5aa6dfc74c612a83a
+const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
 
 const styles = StyleSheet.create({
 /////////////DEFAULT VIRO STYLING/////////////////
@@ -82,12 +84,58 @@ ring: {
 
 ///////////////SWITCH USER PAGE STYLING///////////
 
-    switchUserPageBackground: {
-        backgroundColor: "blue",
+    switchUserPageContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    switchUserPageHeader: {
+      position: 'absolute',
+      top: 20,
+      left: 20,
+    },
+    switchUserPageContent: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     switchUserPageText: {
-        color: "white",
-        fontSize: 20,
+      textAlign: 'center',
+      fontSize: 20,
+      lineHeight: 22,
+      marginBottom: 150,
+      padding: 10,
+      color: 'white',
+      fontSize: 15,
+      fontFamily: 'LemonMilkRegular',
+    },
+    userListContainer: {
+      width: '90%',
+      borderWidth: 1,
+      borderColor: 'white',
+      borderRadius: 0,
+      padding: 10,
+      marginTop: 20,
+      height: 100,
+    },
+    userListScrollContainer: {
+      alignItems: 'center',
+    },
+    userCard: {
+      borderWidth: 2,
+      borderColor: 'rgba(84, 95, 178, 0)',
+      backgroundColor: '#a3adf2',
+      marginLeft: 10,
+      marginRight: 10,
+      height: 50
+    },
+    userCardText: {
+      textAlign: 'center',
+      fontFamily: 'LemonMilkRegular',
+      fontWeight: 'bold',
+      fontSize: 20,
+      color: 'white',
+      padding: 5
     },
 
 
@@ -151,18 +199,8 @@ ring: {
     },
 
 
-////////////////////////////
-    // displayedVenueAvgRatingBar: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //     backgroundColor: "yellow"
-    // },
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED) STYLING
 
-
-    // displayedVenueAvgRatingBarBase: {
-    //     flex: 0.25,
-    //     flexDirection: "row",
-    //   },
       displayedVenueAvgRatingBarRed: {
         flex: 0.25,
         flexDirection: "row",
@@ -189,11 +227,6 @@ ring: {
         backgroundColor: "rgb(0, 128, 0)", // Green
       },
 
-
-
-
-
-
 ////////////////////////////
     displayedVenueAvgRatingBarText: {
         color: "black",
@@ -211,17 +244,8 @@ ring: {
         fontSize: 30
     },
 
-    // displayedReviewRating: {
-    //     color: "black",
-    //     flex: 0.1,
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     fontFamily:"",
-    //     fontSize: 30
-    // },
 
-//BIG DADDY BUTTON BAR --
+
   buttonBar: {
     flex: 1,
     flexDirection: "row",
