@@ -77,7 +77,6 @@ buttonGroup: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#a5d8fd'
     },
 
     switchUserPageHeader: {
@@ -90,30 +89,24 @@ buttonGroup: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+    
     },
 
     switchUserPageText: {
       textAlign: 'center',
-      marginBottom: 20,
+      fontSize: 20,
+      lineHeight: 22,
+      marginBottom: 150,
       padding: 10,
       color: 'white',
       fontSize: 15,
       fontFamily: 'LemonMilkRegular',
     },
 
-    // userListContainer: {
-    //   width: '80%', // Adjust the width as per your requirement
-    //   borderWidth: 10,
-    //   borderColor: '#545fb2',
-    //   borderRadius: 0,
-    //   padding: 0,
-    //   flexDirection: 'row'
-    // },
-
     userListContainer: {
-      width: '80%', // Adjust the width as per your requirement
+      width: '90%',
       borderWidth: 1,
-      borderColor: 'a5d8fd',
+      borderColor: 'white',
       borderRadius: 0,
       padding: 10,
       marginTop: 20, // Add margin top as needed
@@ -125,8 +118,10 @@ buttonGroup: {
 
     userCard: {
       borderWidth: 2,
-      borderColor: '#545fb2',
+      borderColor: 'rgba(84, 95, 178, 0)',
       backgroundColor: '#a3adf2',
+      marginLeft: 10,
+      marginRight: 10,
       height: 50
     },
     userCardText: {
