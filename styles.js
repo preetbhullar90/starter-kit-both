@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+https://github.com/KelvinUng1/ReviewAR-fe/pull/21/conflict?name=styles.js&ancestor_oid=c145042fe6cd13dee04b459e60d0843f9ed60a21&base_oid=ab98d8c2739aa278553f14bacadf922074409a3b&head_oid=dac0f2d380a3b7b23e6f36d5aa6dfc74c612a83a
 const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
 
 const styles = StyleSheet.create({
@@ -20,11 +20,11 @@ container: {
   flex: 1,
   justifyContent: "top",
   alignItems: "center",
-  marginTop: 175,
+  marginTop: 160,
 },
 
 logo: {
-  marginBottom: 150,
+  marginBottom: 130,
 },
 appName: {
   color: '#FFFFFF',
@@ -35,7 +35,7 @@ appName: {
 subtitle: {
   color: 'white',
   fontSize: 18,
-  marginBottom: 70,
+  marginBottom: 50,
 },
 arIcon: {
   width: 75,
@@ -64,11 +64,22 @@ buttonGroupContainer: {
   flexDirection: 'row',
   justifyContent: 'space-between', 
   width: '80%', 
-  marginTop: 50, 
+  marginTop: 30, 
 },
 buttonGroup: {
   flex: 1,
   alignItems: 'center', 
+},
+//ring
+ring: {
+  position: 'absolute', // Make the ring absolute positioned
+  width: 400,
+  height: 400,
+  borderRadius: 200,
+  backgroundColor: '#a3adf2',
+  borderWidth: 1,
+  borderColor: '#7789ea',
+  opacity: 1,
 },
 
 ///////////////SWITCH USER PAGE STYLING///////////
@@ -233,7 +244,8 @@ buttonGroup: {
         fontSize: 30
     },
 
-//BUTTON BAR --
+
+
   buttonBar: {
     flex: 1,
     flexDirection: "row",
