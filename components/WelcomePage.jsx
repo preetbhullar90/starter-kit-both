@@ -32,38 +32,47 @@ const WelcomePage = ({ onStartAR, onFakeAR }) => {
 
 
 return (
- 
+  <ImageBackground
+      source={require("../_media_/layered-steps-haikei.png")}
+      style={styles.backgroundImage}
+    >
   <View style={styles.container}>
     
-    <Image source={require('../_media_/review-ar-03.png')} style={styles.logo} />
+    <Image source={require('../_media_/review-ar-05.png')} style={styles.logo} />
 
-    <Text style={styles.subtitle}>Discover Places Near You</Text>
+    {/* <Text style={styles.subtitle}>Discover Places Near You</Text> */}
     <Text style={styles.subtitle}>{`Welcome, ${userFirstName}!`}</Text>
-    <Button title="Change user" color="yellow" onPress={onSwitchUserClick}/>
+
+
+    <TouchableOpacity style={styles.button} onPress={onSwitchUserClick}>
+          <Text style={styles.text}>Change User</Text>
+        </TouchableOpacity>
+
     <View style={styles.buttonGroupContainer}>
 
       <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={onStartAR}>
-          <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
-        </TouchableOpacity>
-        <Pressable style={styles.button} onPress={onStartAR}>
-          <Text style={styles.text}>START {'\n'}(Google API)</Text>
-        </Pressable>
-      </View>
 
+        <TouchableOpacity onPress={onStartAR}>
+          <Image source={require('../_media_/3d_11365719.png')} style={styles.arIcon} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={onStartAR}>
+          <Text style={styles.text}>START {'\n'}(Google API)</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.buttonGroup}>
         <TouchableOpacity onPress={onFakeAR}>
-          <Image source={require('../_media_/augmented-reality.png')} style={styles.arIcon} />
+          <Image source={require('../_media_/3d_11365719.png')} style={styles.arIcon} />
         </TouchableOpacity>
-        <Pressable style={styles.button} onPress={onFakeAR}>
+        <TouchableOpacity style={styles.button} onPress={onFakeAR}>
           <Text style={styles.text}>START {'\n'}(Own API)</Text>
-        </Pressable>
+        </TouchableOpacity>
 
       </View>
     </View>
   </View>
-    
+    </ImageBackground>
 );
 };
 export default WelcomePage;

@@ -8,19 +8,22 @@ const styles = StyleSheet.create({
         color: "#000",
         textAlign: "center",
     },
-////////////WELCOME PAGE STYLING//////////////
-// backgroundImage: {
-//   flex:1,
-//   resizeMode:"cover"
-// },
+//////////WELCOME PAGE STYLING//////////////
+backgroundImage: {
+  flex: 1,
+  resizeMode:"cover",
+},
 
 container: {
   flex: 1,
-  justifyContent: "center",
+  justifyContent: "top",
   alignItems: "center",
-  backgroundColor: "#2E3B4E",
+  marginTop: 175,
 },
 
+logo: {
+  marginBottom: 150,
+},
 appName: {
   color: '#FFFFFF',
   fontSize: 40,
@@ -28,9 +31,9 @@ appName: {
   marginBottom: 15,
 },
 subtitle: {
-  color: '#8F9BB3',
+  color: 'white',
   fontSize: 18,
-  marginBottom: 15,
+  marginBottom: 70,
 },
 arIcon: {
   width: 75,
@@ -42,23 +45,24 @@ button: {
   justifyContent: 'center',
   paddingVertical: 3,
   paddingHorizontal: 5,
-  borderRadius: 4,
+  borderRadius: 2,
   elevation: 3,
-  backgroundColor: 'green',
+  backgroundColor: "#a5d8ff"
+  
 },
 text: {
   fontSize: 16,
   lineHeight: 21,
   fontWeight: 'bold',
   letterSpacing: 0.25,
-  color: 'white',
+  color: 'black',
   textAlign:"center"
 },
 buttonGroupContainer: {
   flexDirection: 'row',
   justifyContent: 'space-between', 
   width: '80%', 
-  marginTop: 15, 
+  marginTop: 50, 
 },
 buttonGroup: {
   flex: 1,
