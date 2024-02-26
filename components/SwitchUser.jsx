@@ -18,8 +18,6 @@ import { fetchUsers } from "../utils";
 import styles from "../styles"
 
 
-
-
 const SwitchUser = () => {
 
     //window dimensions
@@ -81,6 +79,8 @@ const SwitchUser = () => {
         </ImageBackground>
       );
     };
+
+    export default SwitchUser;
   
 
     // return (
@@ -92,14 +92,10 @@ const SwitchUser = () => {
     // )
 
 
-
-export default SwitchUser;
-
-
   //HANDLE THE SCROLLVIEW FUNCTIONALITY
-  const handleScroll = (event) => {
-    const offsetY = event.nativeEvent.contentOffset.y;
-    const itemHeight = 50;
-    const index = Math.floor(offsetY / itemHeight);
-    setSelectedItem(availableUsers[index]);
-  };
+  // const handleScroll = (event) => {
+  //   const offsetY = event.nativeEvent.contentOffset.y;
+  //   const itemHeight = 50;
+  //   const index = Math.floor(offsetY / itemHeight);
+  //   setSelectedItem(availableUsers[index]);
+  // };
