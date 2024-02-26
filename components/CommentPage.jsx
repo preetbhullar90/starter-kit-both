@@ -1,91 +1,64 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { CurrentUserContext } from "./CurrentUser";
 import {
   Image,
   ImageBackground,
   View,
   TextInput,
-  Button,
   StyleSheet,
   Platform,
-  Text,
   TouchableOpacity,
-  Pressable,
+  Text,
+  Button,
 } from "react-native";
+import { AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
-import { fetchVenues, postReviews } from "../utils";
+import { postReviews } from "../utils";
+
 
 const CommentPage = (venueId) => {
   const [body, setCommentBody] = useState("");
-  const [star_rating, setRating] = useState("");
+  const [star_rating, setRating] = useState('');
   const [showPostComment, setShowPostComment] = useState(true);
   const [isPostingComment, setIsPostingComment] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
   const navigation = useNavigation();
 
-
-
-const { currentUser } = useContext(CurrentUserContext);
-const { user_id, author, name } = currentUser;
-
-  //  const reviewObj = {
-  //    venue_id: 1,
-  //    place_name: "Sunflower Fields",
-  //  };
-  
-  // const user_id = currentUser.user_id
- 
-  
-//   const venue_id = reviewObj.venue_id;
-//   const place_name = reviewObj.place_name;
-// console.log(typeof reviewObj.author,'2')
-
-  const both = venueId.route.params;
-  const { venue_id, place_name } = both;
-  console.log('VenueId:', venue_id);
-  console.log('Place Name:',place_name);
-  
-  
-  useEffect(() => {
-    fetchVenues()
-      .then((response) => {
-        //console.log(response.venues, "response");
-        setData(response.venues);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.response);
-        setLoading(false);
-      });
-  }, []);
-  
-  
-
+  const { currentUser } = useContext(CurrentUserContext);
+  const { user_id, username, name } = currentUser;
+  const author = username;
+  const venue_id = venueId.route.params.venue_id;
+  const place_name = venueId.route.params.place_name;
+  console.log("Id:", venue_id);
+  console.log("Place:", place_name);
 
   const togglePostComment = () => {
     setShowPostComment(!showPostComment);
+  };
+
+  const handleRating = (rating) => {
+    setRating(rating);
   };
 
   const handleNewCommentSubmit = () => {
     // Handle submitting the comment
     setIsPostingComment(true);
     // Logic here to submit the comment
+    if (Platform.OS === "ios") {
+      navigation.navigate("Home");
+    } else {
+      navigation.push("Home");
+    }
 
-     setLoading(true);
-     setError(null);
-     postReviews(venue_id, user_id, author, place_name, body, star_rating)
-       .then(() => {
-         setCommentBody("");
-         setRating("");
-         setLoading(false);
-         navigation.navigate("Home");
-       })
-       .catch((error) => {
-         setError(error);
-         setLoading(false);
-       });
+    postReviews(venue_id, user_id, author, place_name, body, star_rating)
+      .then(() => {
+        setCommentBody("");
+        setRating('');
+        navigation.navigate("Home");
+      })
+      .catch((error) => {
+        console.log(error)
+        
+      });
   };
 
   return (
@@ -101,25 +74,39 @@ const { user_id, author, name } = currentUser;
           />
         </TouchableOpacity>
 
-{showPostComment && (
+        {showPostComment && (
           <View style={styles.formContainer}>
             <TextInput
               multiline={true}
               style={styles.input}
-              placeholder="My Comment..."
+              placeholder="My Review..."
               value={body}
               onChangeText={setCommentBody}
               editable={!isPostingComment}
               numberOfLines={10}
             />
 
-            <TextInput
+            <View style={styles.inputs}>
+              <AirbnbRating
+                count={5}
+                reviews={["Terrible", "Bad", "OK", "Good", "Excellent"]}
+                defaultRating={0}
+                size={30}
+                onFinishRating={handleRating}
+              />
+              <Text style={{ fontSize: 20, paddingBottom: 20, paddingTop: 10,marginBottom:20 }}>
+                Selected Rating: {star_rating}
+              </Text>
+              
+            </View>
+
+            {/* <TextInput
               style={styles.input}
               placeholder="Rating"
               value={star_rating}
               onChangeText={setRating}
               editable={!isPostingComment}
-            />
+            /> */}
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -135,11 +122,7 @@ const { user_id, author, name } = currentUser;
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>
-                  Platform.OS === "ios"
-                    ? handleNewCommentSubmit && navigation.navigate("Home")
-                    : handleNewCommentSubmit && navigation.push("Home")
-                }
+                onPress={handleNewCommentSubmit}
                 disabled={isPostingComment}
               >
                 <Image
@@ -180,6 +163,17 @@ const styles = StyleSheet.create({
     // Set fixed width: adjust as needed
     width: 300,
   },
+  inputs: {
+    backgroundColor: "#333",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 30,
+    color: "#e6e6e6",
+    // Double the height: increased to 200px
+    height: 100,
+    // Set fixed width: adjust as needed
+    width: 300,
+  },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -190,5 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 20, // Add some spacing below button
   },
 });
+
+
 
 export default CommentPage;
