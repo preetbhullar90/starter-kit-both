@@ -24,7 +24,7 @@ container: {
 },
 
 logo: {
-  marginBottom: 80,
+  marginBottom: 130,
 },
 appName: {
   color: '#FFFFFF',
@@ -140,7 +140,7 @@ ring: {
 
 
 ////////////AR ELEMENTS STYLING///////////////////
-venueInfoAndReviewsContainer: {
+   venueInfoAndReviewsContainer: {
   height: 4,
   width: 6,
   backgroundColor: "rgba(0, 0, 0, 0.7)", // Making background slightly transparent for AR feel
@@ -151,94 +151,115 @@ venueInfoAndReviewsContainer: {
 },
 displayedVenueTitleBar: {
   width: 6,
-  backgroundColor: "rgba(165, 216, 255, 1)", // Navy background for the title
+  backgroundColor: "#a3adf2", // Navy background for the title
   padding: 0.1, // Adjust padding for the title
   marginBottom: 0.1, // Space below the title bar
 },
-
 displayedVenueTitleBarText: {
   height: 0.5,
-  color: "navy",
+  color: "#545fb2",
   fontSize: 30, // Adjust font size for readability in AR
   fontWeight: "bold",
   textAlign: "center",
 },
+//////////////////////////
+    displayedReviewAvgRatingVisual: {
+        flex: 0.2,
+        opacity: 1,
+        width: 6,
+        flexDirection: "row",
+        backgroundColor: "white"
+    },
+    avg1Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 0, 0)',
+        opacity: 1,
+        width: 1.2
+    },
+    avg2Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 165, 0)',
+        opacity: 1,
+        width: 1.2
+    },
+    avg3Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(255, 255, 0)',
+        opacity: 1,
+        width: 1.2
+    },
+    avg4Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(144, 238, 144)',
+        opacity: 1,
+        width: 1.2
+    },
+    avg5Star: {
+        flex: 0.2,
+        backgroundColor: 'rgb(0, 128, 0)',
+        opacity: 1,
+        width: 1.2
+    },
 
-//////////////////
-displayedReviewAvgRatingVisual: {
-  flex: 0.3,
-  opacity: 1,
-  width: 6,
-  flexDirection: "row",
-  backgroundColor: "#7789ea",
-},
-avg1Star: {
-  flex: 0.2,
-  backgroundColor: "#545fb2",
-  opacity: 1,
-  width: 1.2,
-},
-avg2Star: {
-  flex: 0.2,
-  backgroundColor: "#545fb2",
-  opacity: 1,
-  width: 1.2,
-},
-avg3Star: {
-  flex: 0.2,
-  backgroundColor: "#545fb2",
-  opacity: 1,
-  width: 1.2,
-},
-avg4Star: {
-  flex: 0.2,
-  backgroundColor: "#545fb2",
-  opacity: 1,
-  width: 1.2,
-},
-avg5Star: {
-  flex: 0.2,
-  backgroundColor: "rgb(0, 128, 0)",
-  opacity: 1,
-  width: 1.2,
-},
+
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED) STYLING
+
+      displayedVenueAvgRatingBarRed: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(255, 0, 0)", // Red
+      },
+      displayedVenueAvgRatingBarOrange: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(255, 165, 0)", // Orange
+      },
+      displayedVenueAvgRatingBarYellow: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(255, 255, 0)", // Yellow
+      },
+      displayedVenueAvgRatingBarLightGreen: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(144, 238, 144)", // Light Green
+      },
+      displayedVenueAvgRatingBarGreen: {
+        flex: 0.25,
+        flexDirection: "row",
+        backgroundColor: "rgb(0, 128, 0)", // Green
+      },
+
+      displayedVenueAvgRatingBarText: {
+        color: "black",
+        textAlign: "center",
+        fontSize: 17,
+        width: 6,
+        backgroundColor: "navy",
+        padding: 0.1, // Add padding for spacing
+        marginBottom: 0.1, // Space below each review section
+        
+      },
 
 ////////////////////////////
-displayedVenueAvgRatingBar: {
-    flex: 0.20,
-width: 6,
-backgroundColor: "#a3adf2",
-padding: 0.2, // Add padding for spacing
-paddingTop:0,
-},
-
-////////////////////////////
-displayedVenueAvgRatingBarText: {
-  color: "black",
-  textAlign: "center",
-  fontSize: 17,
-  flex: 0.5,
-  width: 6,
-  backgroundColor: "navy",
-  padding: 0.1, // Add padding for spacing
-  marginBottom: 0.1, // Space below each review section
   
-},
-displayedReviewBody: {
+  displayedReviewBody: {
   flex: 2,
   width: 6,
-  backgroundColor: "#7789ea",
+  backgroundColor: "white",
   padding: 0.1, // Add padding for spacing
   marginBottom: 0.1, // Space below each review section
 },
 displayedReviewBodyText: {
   height: 2,
-  color: "black",
-  fontSize: 15, // Adjust font size for readability
+  color: "#545fb2",
+  fontSize: 24, // Adjust font size for readability
   textAlign: "left",
 },
 
-//BUTTON BAR --
+///////////////////////////////////////////////////////////////////////
+
+  //BUTTON BAR --
 buttonBar: {
   flexDirection: "row",
   justifyContent: 'space-between', // Distribute buttons evenly
@@ -251,11 +272,13 @@ buttonBar: {
 
 //ADD REVIEW BUTTON
 addReviewButton: {
+  
   height: 0.5,
-  width: 1.2,
+  width: 1.8,
   backgroundColor: "#545fb2",
 },
 addReviewButtonText: {
+  flex: 1,
   color: "white",
   fontSize: 25,
   fontWeight: "bold",
@@ -263,8 +286,9 @@ addReviewButtonText: {
 },
 //BLANK BUTTON _ANOTHER
 anotherOneButton: {
+  flex: 1,
   height: 0.5,
-  width: 1.5,
+  width: 1.8,
   backgroundColor: "#545fb2",
 
 },
@@ -278,11 +302,12 @@ anotherOneButtonText: {
 //BACK TO TOP BUTTON
 mostRecentReviewButton: {
   height: 0.5,
-  width: 1.5,
+  width: 1.8,
   backgroundColor: "#545fb2",
 
 },
 mostRecentReviewButtonText: {
+  flex: 1,
   color: "white",
   fontSize: 25,
   fontWeight: "bold",
@@ -290,14 +315,16 @@ mostRecentReviewButtonText: {
 },
 //NEXTT BUTTON
 displayedNextReviewButton: {
+
   color: "Blue",
   height: 0.5,
-  width: 1.5,
+  width: 1.8,
   backgroundColor: "#545fb2",
   fontSize: 25,
 },
 displayedReviewNextButtonText: {
   color: "white",
+  flex: 1,
   fontSize: 25,
   fontWeight: "bold",
   textAlign: "center",

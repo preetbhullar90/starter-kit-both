@@ -23,7 +23,7 @@ const ARScene2 = () => {
   const navigation = useNavigation();
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(30);
+  const [radius, setRadius] = useState(300);
   const [venues, setVenues] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
   const [users, setUsers] = useState([]);
@@ -142,20 +142,20 @@ const ARScene2 = () => {
     navigation.navigate("ReviewPage", { venue_id, place_name });
   };
 
-  // const getRatingStyle = (venue) => {
-  //   const rating = parseFloat(venue.average_star_rating);
-  //   if (rating >= 1 && rating < 2.1) {
-  //     return styles.displayedVenueAvgRatingBarRed;
-  //   } else if (rating >= 2.1 && rating < 3.1) {
-  //     return styles.displayedVenueAvgRatingBarOrange;
-  //   } else if (rating >= 3.1 && rating < 4.1) {
-  //     return styles.displayedVenueAvgRatingBarYellow;
-  //   } else if (rating >= 4.1 && rating < 5) {
-  //     return styles.displayedVenueAvgRatingBarLightGreen;
-  //   } else {
-  //     return styles.displayedVenueAvgRatingBarGreen;
-  //   }
-  // };
+  const getRatingStyle = (venue) => {
+    const rating = parseFloat(venue.average_star_rating);
+    if (rating >= 1 && rating < 2.1) {
+      return styles.displayedVenueAvgRatingBarRed;
+    } else if (rating >= 2.1 && rating < 3.1) {
+      return styles.displayedVenueAvgRatingBarOrange;
+    } else if (rating >= 3.1 && rating < 4.1) {
+      return styles.displayedVenueAvgRatingBarYellow;
+    } else if (rating >= 4.1 && rating < 5) {
+      return styles.displayedVenueAvgRatingBarLightGreen;
+    } else {
+      return styles.displayedVenueAvgRatingBarGreen;
+    }
+  };
 
   useEffect(() => {
     if (nearbyVenues.length > 0 && reviews.length > 0) {
@@ -284,7 +284,7 @@ const ARScene2 = () => {
             </ViroFlexView>
 
             {/* THE AVERAGE RATING TEXT BAR */}
-            <ViroFlexView style={styles.displayedVenueAvgRatingBar}>
+            <ViroFlexView style={[getRatingStyle(venue)]}>
               <ViroText
                 style={styles.displayedVenueAvgRatingBarText}
                 text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
