@@ -15,6 +15,10 @@ import {
 import { AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
 import { postReviews } from "../utils";
+
+//main styles file
+import styles from "../styles"
+
 const ReviewPage = (venueId) => {
   const scaleAnimationRef = useRef(new Animated.Value(0)).current;
   const opacityAnimationRef = useRef(new Animated.Value(1)).current;
@@ -80,49 +84,52 @@ const ReviewPage = (venueId) => {
       opacityAnimation.stop();
     };
   }, [scaleAnimationRef, opacityAnimationRef]);
+
+
   return (
     <ImageBackground
       source={require("../_media_/layered-steps-haikei.png")}
-      style={styles.backgroundImage}
+      style={styles.reviewPageBackgroundImage}
     >
       {/* Pulsating Ring */}
       <Animated.View
         style={[
-          styles.ring,
+          styles.reviewPageRing,
           { opacity: opacityAnimationRef },
           { transform: [{ scale: scaleAnimationRef }] },
         ]}
       />
-      <View style={styles.container}>
+      <View style={styles.reviewPageContainer}>
         <TouchableOpacity onPress={togglePostComment}>
           <Image
-            source={require("../_media_/write-a-review.png")}
-            style={{ width: 300, height: 80 }}
+            source={require("../_media_/review-ar-05-icon.png")}
+            style={{ width: 120, height: 90, alignSelf: "center" }}
           />
         </TouchableOpacity>
         {showPostComment && (
-          <View style={styles.formContainer}>
+          <View style={styles.reviewPageFormContainer}>
             <TextInput
               multiline={true}
-              style={styles.input}
-              placeholder="My Review..."
+              style={styles.reviewPageBodyInput}
+              placeholder="What did you think?"
+              placeholderTextColor="#7789EA"
               value={body}
               onChangeText={setCommentBody}
               editable={!isPostingComment}
               numberOfLines={10}
             />
-            <View style={styles.inputs}>
+            <View style={styles.reviewPageRatingInput}>
               <AirbnbRating
                 count={5}
                 reviews={["Terrible", "Bad", "OK", "Good", "Excellent"]}
-                defaultRating={0}
+                defaultRating={3}
                 size={30}
                 onFinishRating={handleRating}
                 reviewColor="#7789EA"
                 unSelectedColor="#BDC3C7"
                 selectedColor="#7789EA"
               />
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 20,
                   paddingBottom: 20,
@@ -131,7 +138,7 @@ const ReviewPage = (venueId) => {
                 }}
               >
                 Selected Rating: {star_rating}
-              </Text>
+              </Text> */}
             </View>
             {/* <TextInput
               style={styles.input}
@@ -140,7 +147,7 @@ const ReviewPage = (venueId) => {
               onChangeText={setRating}
               editable={!isPostingComment}
             /> */}
-            <View style={styles.buttonContainer}>
+            <View style={styles.reviewPageButtonContainer}>
               <TouchableOpacity
                 onPress={() =>
                   Platform.OS === "ios"
@@ -149,8 +156,8 @@ const ReviewPage = (venueId) => {
                 }
               >
                 <Image
-                  source={require("../_media_/Cancel.png")}
-                  style={{ width: 50, height: 50 }}
+                  source={require("../_media_/icons8-cancel-100.png")}
+                  style={{ width: 75, height: 75 }}
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -158,8 +165,8 @@ const ReviewPage = (venueId) => {
                 disabled={isPostingComment}
               >
                 <Image
-                  source={require("../_media_/Post.png")}
-                  style={{ width: 120, height: 50 }}
+                  source={require("../_media_/icons8-submit-100.png")}
+                  style={{ width: 100, height: 100 }}
                 />
               </TouchableOpacity>
             </View>
@@ -169,62 +176,17 @@ const ReviewPage = (venueId) => {
     </ImageBackground>
   );
 };
-const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container: {
-    paddingHorizontal: 20,
-    color: "#E6E6E6",
-  },
-  formContainer: {
-    marginTop: 20,
-  },
-  input: {
-    backgroundColor: "#333",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    color: "#E6E6E6",
-    // Double the height: increased to 200px
-    height: 200,
-    // Set fixed width: adjust as needed
-    width: 300,
-  },
-  inputs: {
-    backgroundColor: "#333",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 30,
-    color: "#E6E6E6",
-    // Double the height: increased to 200px
-    height: 100,
-    // Set fixed width: adjust as needed
-    width: 300,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20, // Add some spacing below buttons
-  },
-  commentButton: {
-    // Customize style for "Write a Comment" button here
-    marginBottom: 20, // Add some spacing below button
-  },
+
+  
+  
+  
+  
+  
+
+  // reviewPageCommentButton: {
+  //   // Customize style for "Write a Comment" button here
+  //   marginBottom: 20, // Add some spacing below button
+  // },
   //ring
-  ring: {
-    position: "absolute", // Make the ring absolute positioned
-    width: 400,
-    height: 400,
-    borderRadius: 200,
-    backgroundColor: "#A3ADF2",
-    borderWidth: 1,
-    borderColor: "#7789EA",
-    opacity: 1,
-    top: 0,
-  },
-});
+ 
 export default ReviewPage;

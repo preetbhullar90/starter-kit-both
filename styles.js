@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
+const LemonMilkBold = require('./assets/fonts/lemonmilk/LEMONMILK-Bold.otf');
 
 const styles = StyleSheet.create({
 /////////////DEFAULT VIRO STYLING/////////////////
@@ -329,6 +330,64 @@ displayedReviewNextButtonText: {
   fontWeight: "bold",
   textAlign: "center",
 },
+
+/////////////REVIEW PAGE STYLING////////////////////
+
+reviewPageBackgroundImage: {
+  flex: 1,
+  resizeMode: "cover",
+  justifyContent: "center",
+  alignItems: "center",
+},
+reviewPageBodyInput: {
+  backgroundColor: "white",
+  borderRadius: 0,
+  paddingHorizontal: 10,
+  marginBottom: 10,
+  color: "#7789EA",
+  // Double the height: increased to 200px
+  height: 200,
+  // Set fixed width: adjust as needed
+  width: 300,
+  fontFamily: "LemonMilkRegular"
+},
+reviewPageContainer: {
+  paddingHorizontal: 20,
+  color: "#E6E6E6",
+},
+reviewPageFormContainer: {
+  marginTop: 20,
+},
+reviewPageRatingInput: {
+  backgroundColor: "white",
+  borderRadius: 0,
+  paddingHorizontal: 10,
+  marginBottom: 30,
+  paddingBottom: 30,
+  color: "#E6E6E6",
+  // Double the height: increased to 200px
+  height: 100,
+  // Set fixed width: adjust as needed
+  width: 300,
+},
+reviewPageButtonContainer: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginBottom: 20, // Add some spacing below buttons
+  alignItems: "center"
+},
+reviewPageRing: {
+  position: "absolute", // Make the ring absolute positioned
+  width: 400,
+  height: 400,
+  borderRadius: 200,
+  backgroundColor: "#A3ADF2",
+  borderWidth: 1,
+  borderColor: "#7789EA",
+  opacity: 1,
+  top: 0,
+},
+
 });
 
 module.exports = styles;
