@@ -178,13 +178,13 @@ displayedVenueTitleBarText: {
     },
     avg2Star: {
         flex: 0.2,
-        backgroundColor: 'rgb(255, 165, 0)',
+        backgroundColor: 'rgb(207, 107, 31)',
         opacity: 1,
         width: 1.2
     },
     avg3Star: {
         flex: 0.2,
-        backgroundColor: 'rgb(255, 255, 0)',
+        backgroundColor: 'rgb(217, 186, 108)',
         opacity: 1,
         width: 1.2
     },
