@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CurrentUserContext } from "./CurrentUser";
+
 import {
   Image,
   ImageBackground,
@@ -9,18 +10,20 @@ import {
   Platform,
   TouchableOpacity,
   Text,
-  Button,
+  Animated,
+  Easing,
 } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
 import { postReviews } from "../utils";
 
-
 const ReviewPage = (venueId) => {
-  const [body, setReviewBody] = useState("");
-  const [star_rating, setRating] = useState('');
-  const [showPostReview, setShowPostReview] = useState(false);
-  const [isPostingReview, setIsPostingReview] = useState(false);
+  const scaleAnimationRef = useRef(new Animated.Value(0)).current;
+  const opacityAnimationRef = useRef(new Animated.Value(1)).current;
+  const [body, setCommentBody] = useState("");
+  const [star_rating, setRating] = useState("");
+  const [showPostComment, setShowPostComment] = useState(false);
+  const [isPostingComment, setIsPostingComment] = useState(false);
   const navigation = useNavigation();
 
   const { currentUser } = useContext(CurrentUserContext);
@@ -31,18 +34,18 @@ const ReviewPage = (venueId) => {
   console.log("Id:", venue_id);
   console.log("Place:", place_name);
 
-  const togglePostReview = () => {
-    setShowPostReview(!showPostReview);
+  const togglePostComment = () => {
+    setShowPostComment(!showPostComment);
   };
 
   const handleRating = (rating) => {
     setRating(rating);
   };
 
-  const handleNewReviewSubmit = () => {
-    // Handle submitting the Review
-    setIsPostingReview(true);
-    // Logic here to submit the Review
+  const handleNewCommentSubmit = () => {
+    // Handle submitting the comment
+    setIsPostingComment(true);
+    // Logic here to submit the comment
     if (Platform.OS === "ios") {
       navigation.navigate("Home");
     } else {
@@ -51,38 +54,74 @@ const ReviewPage = (venueId) => {
 
     postReviews(venue_id, user_id, author, place_name, body, star_rating)
       .then(() => {
-        setReviewBody("");
-        setRating('');
+        setCommentBody("");
+        setRating("");
         navigation.navigate("Home");
       })
       .catch((error) => {
-        console.log(error)
-        
+        console.log(error);
       });
   };
 
+  //scanning ring animation
+  useEffect(() => {
+    const scaleAnimation = Animated.loop(
+      Animated.timing(scaleAnimationRef, {
+        toValue: 1,
+        duration: 3500,
+        useNativeDriver: true,
+        easing: Easing.linear,
+      })
+    );
+    const opacityAnimation = Animated.loop(
+      Animated.timing(opacityAnimationRef, {
+        toValue: 0,
+        duration: 3500,
+        useNativeDriver: true,
+        easing: Easing.linear,
+      })
+    );
+
+    scaleAnimation.start();
+    opacityAnimation.start();
+
+    return () => {
+      scaleAnimation.stop();
+      opacityAnimation.stop();
+    };
+  }, [scaleAnimationRef, opacityAnimationRef]);
+
   return (
     <ImageBackground
-      source={require("../_media_/background-01.jpg")}
+      source={require("../_media_/layered-steps-haikei.png")}
       style={styles.backgroundImage}
     >
+      {/* Pulsating Ring */}
+
+      <Animated.View
+        style={[
+          styles.ring,
+          { opacity: opacityAnimationRef },
+          { transform: [{ scale: scaleAnimationRef }] },
+        ]}
+      />
       <View style={styles.container}>
-        <TouchableOpacity onPress={togglePostReview}>
+        <TouchableOpacity onPress={togglePostComment}>
           <Image
             source={require("../_media_/write-a-review.png")}
             style={{ width: 300, height: 80 }}
           />
         </TouchableOpacity>
 
-        {showPostReview && (
+        {showPostComment && (
           <View style={styles.formContainer}>
             <TextInput
               multiline={true}
               style={styles.input}
               placeholder="My Review..."
               value={body}
-              onChangeText={setReviewBody}
-              editable={!isPostingReview}
+              onChangeText={setCommentBody}
+              editable={!isPostingComment}
               numberOfLines={10}
             />
 
@@ -93,11 +132,20 @@ const ReviewPage = (venueId) => {
                 defaultRating={0}
                 size={30}
                 onFinishRating={handleRating}
+                reviewColor="#7789ea"
+                unSelectedColor="#BDC3C7"
+                selectedColor="#7789ea"
               />
-              <Text style={{ fontSize: 20, paddingBottom: 20, paddingTop: 10,marginBottom:20 }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  paddingBottom: 20,
+                  paddingTop: 10,
+                  marginBottom: 20,
+                }}
+              >
                 Selected Rating: {star_rating}
               </Text>
-              
             </View>
 
             {/* <TextInput
@@ -105,7 +153,7 @@ const ReviewPage = (venueId) => {
               placeholder="Rating"
               value={star_rating}
               onChangeText={setRating}
-              editable={!isPostingReview}
+              editable={!isPostingComment}
             /> */}
 
             <View style={styles.buttonContainer}>
@@ -122,8 +170,8 @@ const ReviewPage = (venueId) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={handleNewReviewSubmit}
-                disabled={isPostingReview}
+                onPress={handleNewCommentSubmit}
+                disabled={isPostingComment}
               >
                 <Image
                   source={require("../_media_/Post.png")}
@@ -179,12 +227,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20, // Add some spacing below buttons
   },
-  reviewButton: {
-    // Customize style for "Write a Review" button here
+  commentButton: {
+    // Customize style for "Write a Comment" button here
     marginBottom: 20, // Add some spacing below button
   },
+  //ring
+  ring: {
+    position: "absolute", // Make the ring absolute positioned
+    width: 400,
+    height: 400,
+    borderRadius: 200,
+    backgroundColor: "#a3adf2",
+    borderWidth: 1,
+    borderColor: "#7789ea",
+    opacity: 1,
+    top: 0,
+  },
 });
-
-
 
 export default ReviewPage;
