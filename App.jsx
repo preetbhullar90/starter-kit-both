@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Platform } from "react-native";
 
 import WelcomePage from "./components/WelcomePage";
-import CommentPage from "./components/CommentPage";
+import CommentPage from "./components/ReviewPage";
 import SwitchUser from "./components/SwitchUser";
 import ARScene from "./components/ARScene";
 import ARScene2 from "./components/ARScene2";
@@ -105,7 +105,6 @@ const App = () => {
                 >
                   <MapView
                     style={styles.map}
-                    minZoomLevel={13}
                     initialRegion={{
                       latitude: position.latitude,
                       longitude: position.longitude,
@@ -118,7 +117,7 @@ const App = () => {
                         latitude: position.latitude,
                         longitude: position.longitude,
                       }}
-                      radius={500}
+                      radius={200}
                       fillColor="rgba(255, 0, 0, 0.2)"
                       strokeColor="rgba(255, 0, 0, 0.5)"
                     />
@@ -136,7 +135,7 @@ const App = () => {
         </Stack.Screen>
 
         <Stack.Screen
-          name="CommentPage"
+          name="ReviewPage"
           component={CommentPage}
           options={{
             ...Platform.select({

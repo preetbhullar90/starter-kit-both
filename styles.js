@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-https://github.com/KelvinUng1/ReviewAR-fe/pull/21/conflict?name=styles.js&ancestor_oid=c145042fe6cd13dee04b459e60d0843f9ed60a21&base_oid=ab98d8c2739aa278553f14bacadf922074409a3b&head_oid=dac0f2d380a3b7b23e6f36d5aa6dfc74c612a83a
+
 const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ container: {
 },
 
 logo: {
-  marginBottom: 130,
+  marginBottom: 80,
 },
 appName: {
   color: '#FFFFFF',
@@ -140,173 +140,168 @@ ring: {
 
 
 ////////////AR ELEMENTS STYLING///////////////////
-    venueInfoAndReviewsContainer: {
-        height: 4,
-        width: 6,
-        backgroundColor: "black",
-        opacity: 0.7
-    },
-    displayedVenueTitleBar: {
-        flex: 0.5,
-        flexDirection: "row",
-        backgroundColor: "navy"
-    },
-    displayedVenueTitleBarText: {
-        color: "white",
-        flexDirection: "row",
-        textAlignHorizontal: "center",
-        textAlign: "center",
-        fontSize: 30,
-        fontWeight: "bold"
-    },
-//////////////////////////
-    displayedReviewAvgRatingVisual: {
-        flex: 0.2,
-        opacity: 1,
-        width: 6,
-        flexDirection: "row",
-        backgroundColor: "white"
-    },
-    avg1Star: {
-        flex: 0.2,
-        backgroundColor: 'rgb(255, 0, 0)',
-        opacity: 1,
-        width: 1.2
-    },
-    avg2Star: {
-        flex: 0.2,
-        backgroundColor: 'rgb(255, 165, 0)',
-        opacity: 1,
-        width: 1.2
-    },
-    avg3Star: {
-        flex: 0.2,
-        backgroundColor: 'rgb(255, 255, 0)',
-        opacity: 1,
-        width: 1.2
-    },
-    avg4Star: {
-        flex: 0.2,
-        backgroundColor: 'rgb(144, 238, 144)',
-        opacity: 1,
-        width: 1.2
-    },
-    avg5Star: {
-        flex: 0.2,
-        backgroundColor: 'rgb(0, 128, 0)',
-        opacity: 1,
-        width: 1.2
-    },
+venueInfoAndReviewsContainer: {
+  height: 4,
+  width: 6,
+  backgroundColor: "rgba(0, 0, 0, 0.7)", // Making background slightly transparent for AR feel
+  flexDirection: "column", // Ensure content is laid out vertically
+  justifyContent: "flex-start", // Align items to the top
+  alignItems: "center", // Center items horizontally
+  padding: 0.1, // Adjust padding as necessary
+},
+displayedVenueTitleBar: {
+  width: 6,
+  backgroundColor: "rgba(165, 216, 255, 1)", // Navy background for the title
+  padding: 0.1, // Adjust padding for the title
+  marginBottom: 0.1, // Space below the title bar
+},
 
+displayedVenueTitleBarText: {
+  height: 0.5,
+  color: "navy",
+  fontSize: 30, // Adjust font size for readability in AR
+  fontWeight: "bold",
+  textAlign: "center",
+},
 
-////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED) STYLING
-
-      displayedVenueAvgRatingBarRed: {
-        flex: 0.25,
-        flexDirection: "row",
-        backgroundColor: "rgb(255, 0, 0)", // Red
-      },
-      displayedVenueAvgRatingBarOrange: {
-        flex: 0.25,
-        flexDirection: "row",
-        backgroundColor: "rgb(255, 165, 0)", // Orange
-      },
-      displayedVenueAvgRatingBarYellow: {
-        flex: 0.25,
-        flexDirection: "row",
-        backgroundColor: "rgb(255, 255, 0)", // Yellow
-      },
-      displayedVenueAvgRatingBarLightGreen: {
-        flex: 0.25,
-        flexDirection: "row",
-        backgroundColor: "rgb(144, 238, 144)", // Light Green
-      },
-      displayedVenueAvgRatingBarGreen: {
-        flex: 0.25,
-        flexDirection: "row",
-        backgroundColor: "rgb(0, 128, 0)", // Green
-      },
+//////////////////
+displayedReviewAvgRatingVisual: {
+  flex: 0.3,
+  opacity: 1,
+  width: 6,
+  flexDirection: "row",
+  backgroundColor: "#7789ea",
+},
+avg1Star: {
+  flex: 0.2,
+  backgroundColor: "#545fb2",
+  opacity: 1,
+  width: 1.2,
+},
+avg2Star: {
+  flex: 0.2,
+  backgroundColor: "#545fb2",
+  opacity: 1,
+  width: 1.2,
+},
+avg3Star: {
+  flex: 0.2,
+  backgroundColor: "#545fb2",
+  opacity: 1,
+  width: 1.2,
+},
+avg4Star: {
+  flex: 0.2,
+  backgroundColor: "#545fb2",
+  opacity: 1,
+  width: 1.2,
+},
+avg5Star: {
+  flex: 0.2,
+  backgroundColor: "rgb(0, 128, 0)",
+  opacity: 1,
+  width: 1.2,
+},
 
 ////////////////////////////
-    displayedVenueAvgRatingBarText: {
-        color: "black",
-        textAlign: "center",
-        fontSize: 15
-    },
-    displayedReviewBody: {
-        flex: 2,// edit here to give more space if needed. but make sure it doesnt overlap.
-        flexDirection: "row",
-        backgroundColor: "white"
-    },
-    displayedReviewBodyText: {
-        color: "black",
-        alignItems: "center",
-        fontSize: 30
-    },
+displayedVenueAvgRatingBar: {
+    flex: 0.20,
+width: 6,
+backgroundColor: "#a3adf2",
+padding: 0.2, // Add padding for spacing
+paddingTop:0,
+},
 
-
-
-  buttonBar: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    backgroundColor: "black"
-    // backgroundColor:"white" // setting to white makes it look greyed out
-  }, 
+////////////////////////////
+displayedVenueAvgRatingBarText: {
+  color: "black",
+  textAlign: "center",
+  fontSize: 17,
+  flex: 0.5,
+  width: 6,
+  backgroundColor: "navy",
+  padding: 0.1, // Add padding for spacing
+  marginBottom: 0.1, // Space below each review section
   
-  //ADD REVIEW BUTTON
-  addReviewButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "green",
-    opacity: 0.7,
-  },
-  addReviewButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 30,
-  },  
-  //BLANK BUTTON _ANOTHER
-  anotherOneButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "blue",
-    opacity: 0.7,
-  },
-  anotherOneButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 30,
-  },
-  
-  //BACK TO TOP BUTTON
-  mostRecentReviewButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "black",
-    opacity: 0.7,
-  },
-  mostRecentReviewButtonText: {
-    color: "white",
-    
-    textAlign: "center",
-    fontSize: 30,
-  },
-  //NEXTT BUTTON
-  displayedNextReviewButton: {
-    color: "Blue",
-    height: 1,
-    width: 1.5,
-    backgroundColor: "red",
-    fontSize: 25,
-  },
-  displayedReviewNextButtonText: {
-    color: "white",
-    
-    textAlign: "center",
-    fontSize: 30,
-  },
+},
+displayedReviewBody: {
+  flex: 2,
+  width: 6,
+  backgroundColor: "#7789ea",
+  padding: 0.1, // Add padding for spacing
+  marginBottom: 0.1, // Space below each review section
+},
+displayedReviewBodyText: {
+  height: 2,
+  color: "black",
+  fontSize: 15, // Adjust font size for readability
+  textAlign: "left",
+},
+
+//BUTTON BAR --
+buttonBar: {
+  flexDirection: "row",
+  justifyContent: 'space-between', // Distribute buttons evenly
+  alignItems: "center",
+  width: 6,
+  flex: 0.75,
+  backgroundColor: "#a3adf2", // Consistent with container style
+  padding: 0.1, // Padding for spacing
+},
+
+//ADD REVIEW BUTTON
+addReviewButton: {
+  height: 0.5,
+  width: 1.2,
+  backgroundColor: "#545fb2",
+},
+addReviewButtonText: {
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+//BLANK BUTTON _ANOTHER
+anotherOneButton: {
+  height: 0.5,
+  width: 1.5,
+  backgroundColor: "#545fb2",
+
+},
+anotherOneButtonText: {
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+
+//BACK TO TOP BUTTON
+mostRecentReviewButton: {
+  height: 0.5,
+  width: 1.5,
+  backgroundColor: "#545fb2",
+
+},
+mostRecentReviewButtonText: {
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+//NEXTT BUTTON
+displayedNextReviewButton: {
+  color: "Blue",
+  height: 0.5,
+  width: 1.5,
+  backgroundColor: "#545fb2",
+  fontSize: 25,
+},
+displayedReviewNextButtonText: {
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
 });
 
 module.exports = styles;
