@@ -230,15 +230,15 @@ displayedVenueTitleBarText: {
         backgroundColor: "rgb(0, 128, 0)", // Green
       },
 
-      displayedVenueAvgRatingBarText: {
+displayedVenueAvgRatingBarText: {
         color: "black",
         textAlign: "center",
-        fontSize: 17,
+        fontSize: Platform.OS === 'ios'? 15: 17,
+        flex: 0.5,
         width: 6,
         backgroundColor: "navy",
-        padding: 0.1, // Add padding for spacing
+        padding: 3, // Add padding for spacing
         marginBottom: 0.1, // Space below each review section
-        
       },
 
 ////////////////////////////
