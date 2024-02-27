@@ -17,14 +17,14 @@ import { useNavigation } from "@react-navigation/native";
 import { postReviews } from "../utils";
 
 //main styles file
-import styles from "../styles"
+import styles from "../styles";
 
 const ReviewPage = (venueId) => {
   const scaleAnimationRef = useRef(new Animated.Value(0)).current;
   const opacityAnimationRef = useRef(new Animated.Value(1)).current;
   const [body, setCommentBody] = useState("");
   const [star_rating, setRating] = useState("");
-  const [showPostComment, setShowPostComment] = useState(false);
+  const [showPostComment, setShowPostComment] = useState(true);
   const [isPostingComment, setIsPostingComment] = useState(false);
   const navigation = useNavigation();
   const { currentUser } = useContext(CurrentUserContext);
@@ -85,7 +85,6 @@ const ReviewPage = (venueId) => {
     };
   }, [scaleAnimationRef, opacityAnimationRef]);
 
-
   return (
     <ImageBackground
       source={require("../_media_/layered-steps-haikei.png")}
@@ -129,24 +128,7 @@ const ReviewPage = (venueId) => {
                 unSelectedColor="#BDC3C7"
                 selectedColor="#7789EA"
               />
-              {/* <Text
-                style={{
-                  fontSize: 20,
-                  paddingBottom: 20,
-                  paddingTop: 10,
-                  marginBottom: 20,
-                }}
-              >
-                Selected Rating: {star_rating}
-              </Text> */}
             </View>
-            {/* <TextInput
-              style={styles.input}
-              placeholder="Rating"
-              value={star_rating}
-              onChangeText={setRating}
-              editable={!isPostingComment}
-            /> */}
             <View style={styles.reviewPageButtonContainer}>
               <TouchableOpacity
                 onPress={() =>
@@ -177,16 +159,4 @@ const ReviewPage = (venueId) => {
   );
 };
 
-  
-  
-  
-  
-  
-
-  // reviewPageCommentButton: {
-  //   // Customize style for "Write a Comment" button here
-  //   marginBottom: 20, // Add some spacing below button
-  // },
-  //ring
- 
 export default ReviewPage;

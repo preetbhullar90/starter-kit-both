@@ -25,7 +25,9 @@ container: {
 },
 
 logo: {
-  marginBottom: 130,
+  marginBottom: 60,
+height: 200,
+width: 350,
 },
 appName: {
   color: '#FFFFFF',
