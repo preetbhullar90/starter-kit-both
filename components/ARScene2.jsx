@@ -6,6 +6,7 @@ import {
   ViroTrackingStateConstants,
   Viro3DObject,
   ViroAnimations,
+  ViroImage,
 } from "@viro-community/react-viro";
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
@@ -30,6 +31,7 @@ const ARScene2 = () => {
   const [reviews, setReviews] = useState([]);
   const [nearbyVenues, setNearbyVenues] = useState([]);
   const [selectedVenueId, setSelectedVenueId] = useState(null);
+  const [starIosPosition, setIosStarPosition] = useState([0.1, 0.1, 0.1]);
   const [starPosition, setStarPosition] = useState([0, 0, 0]);
   const [starScale, setStarScale] = useState([0.1, 0.1, 0.1]);
 
@@ -88,7 +90,7 @@ const ARScene2 = () => {
       },
       {
         enableHighAccuracy: true,
-        distanceFilter: 5, // Update location when the device moves at least 5 meters
+        distanceFilter: 1, // Update location when the device moves at least 5 meters
         timeout: 5000, // Cancel if location retrieval takes too long
       }
     );
@@ -162,6 +164,7 @@ const ARScene2 = () => {
       // Conditions met, update star position and scale
       setStarPosition([0, -0.08, 0]);
       setStarScale([0.05, 0.05, 0.05]);
+      setIosStarPosition([0.2, 0, 0]);
     }
   }, [nearbyVenues, reviews]);
 
@@ -186,7 +189,7 @@ const ARScene2 = () => {
           {/*   useState([0, 0, 0]);
         useState([0.1, 0.1, 0.1]); */}
           <Viro3DObject
-            source={require("../assets/binocular/binocular.obj")} // Adjust the path as necessary
+            source={require("../assets/dragon/Dragon.obj")} // Adjust the path as necessary
             // resources={require("../assets/binocular/Blank.mtl")}
             position={[2, 2, -30]} // Use the position prop passed to each Star instance
             scale={[0.025, 0.025, 0.025]} // Adjust scale as necessary
@@ -218,19 +221,17 @@ const ARScene2 = () => {
 
             {/* THE AVERAGE RATING VISUAL */}
             <ViroFlexView style={styles.displayedReviewAvgRatingVisual}>
-              <ViroFlexView style={styles.avg1Star}>
-                <Viro3DObject
-                  source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
-                  // resources={require("../assets/stars/Blank.mtl")}
-                  position={starPosition} // Use the position prop passed to each Star instance
-                  scale={starScale} // Adjust scale as necessary
-                  rotation={[-90, 0, 0]}
-                  animation={{ name: "rotate", loop: true, run: true }}
-                  type="OBJ" // Assuming the star model is an OBJ file
-                />
-              </ViroFlexView>
-              {parseInt(venue.average_star_rating) >= 2 && (
-                <ViroFlexView style={styles.avg2Star}>
+            <ViroFlexView style={styles.avg1Star}>
+                {Platform.OS === "ios" ? (
+                  <ViroImage
+                    height={0.25}
+                    width={0.25}
+                    position={starIosPosition} // Use the position prop passed to each Star instance
+                    // scale={starScale} // Adjust scale as necessary
+                    // placeholderSource={require("../assets/ReviewStar.png")}
+                    source={require("../assets/ReviewStar.png")}
+                  />
+                ) : (
                   <Viro3DObject
                     source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
                     // resources={require("../assets/stars/Blank.mtl")}
@@ -240,45 +241,102 @@ const ARScene2 = () => {
                     animation={{ name: "rotate", loop: true, run: true }}
                     type="OBJ" // Assuming the star model is an OBJ file
                   />
+                )}
+              </ViroFlexView>
+              {parseInt(venue.average_star_rating) >= 2 && (
+                <ViroFlexView style={styles.avg2Star}>
+                  {Platform.OS === "ios" ? (
+                    <ViroImage
+                      height={0.25}
+                      width={0.25}
+                      position={starIosPosition} // Use the position prop passed to each Star instance
+                      // scale={starScale} // Adjust scale as necessary
+                      // placeholderSource={require("../assets/ReviewStar.png")}
+                      source={require("../assets/ReviewStar.png")}
+                    />
+                  ) : (
+                    <Viro3DObject
+                      source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                      // resources={require("../assets/stars/Blank.mtl")}
+                      position={starPosition} // Use the position prop passed to each Star instance
+                      scale={starScale} // Adjust scale as necessary
+                      rotation={[-90, 0, 0]}
+                      animation={{ name: "rotate", loop: true, run: true }}
+                      type="OBJ" // Assuming the star model is an OBJ file
+                    />
+                  )}
                 </ViroFlexView>
               )}
               {parseInt(venue.average_star_rating) >= 3 && (
                 <ViroFlexView style={styles.avg3Star}>
-                  <Viro3DObject
-                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
-                    // resources={require("../assets/stars/Blank.mtl")}
-                    position={starPosition} // Use the position prop passed to each Star instance
-                    scale={starScale} // Adjust scale as necessary
-                    rotation={[-90, 0, 0]}
-                    animation={{ name: "rotate", loop: true, run: true }}
-                    type="OBJ" // Assuming the star model is an OBJ file
-                  />
+                  {Platform.OS === "ios" ? (
+                    <ViroImage
+                      height={0.25}
+                      width={0.25}
+                      position={starIosPosition} // Use the position prop passed to each Star instance
+                      // scale={starScale} // Adjust scale as necessary
+                      // placeholderSource={require("../assets/ReviewStar.png")}
+                      source={require("../assets/ReviewStar.png")}
+                    />
+                  ) : (
+                    <Viro3DObject
+                      source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                      // resources={require("../assets/stars/Blank.mtl")}
+                      position={starPosition} // Use the position prop passed to each Star instance
+                      scale={starScale} // Adjust scale as necessary
+                      rotation={[-90, 0, 0]}
+                      animation={{ name: "rotate", loop: true, run: true }}
+                      type="OBJ" // Assuming the star model is an OBJ file
+                    />
+                  )}
                 </ViroFlexView>
               )}
               {parseInt(venue.average_star_rating) >= 4 && (
                 <ViroFlexView style={styles.avg4Star}>
-                  <Viro3DObject
-                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
-                    // resources={require("../assets/stars/Blank.mtl")}
-                    position={starPosition} // Use the position prop passed to each Star instance
-                    scale={starScale} // Adjust scale as necessary
-                    rotation={[-90, 0, 0]}
-                    animation={{ name: "rotate", loop: true, run: true }}
-                    type="OBJ" // Assuming the star model is an OBJ file
-                  />
+                  {Platform.OS === "ios" ? (
+                    <ViroImage
+                      height={0.25}
+                      width={0.25}
+                      position={starIosPosition} // Use the position prop passed to each Star instance
+                      // scale={starScale} // Adjust scale as necessary
+                      // placeholderSource={require("../assets/ReviewStar.png")}
+                      source={require("../assets/ReviewStar.png")}
+                    />
+                  ) : (
+                    <Viro3DObject
+                      source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                      // resources={require("../assets/stars/Blank.mtl")}
+                      position={starPosition} // Use the position prop passed to each Star instance
+                      scale={starScale} // Adjust scale as necessary
+                      rotation={[-90, 0, 0]}
+                      animation={{ name: "rotate", loop: true, run: true }}
+                      type="OBJ" // Assuming the star model is an OBJ file
+                    />
+                  )}
                 </ViroFlexView>
               )}
               {parseInt(venue.average_star_rating) === 5 && (
                 <ViroFlexView style={styles.avg5Star}>
-                  <Viro3DObject
-                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
-                    // resources={require("../assets/stars/Blank.mtl")}
-                    position={starPosition} // Use the position prop passed to each Star instance
-                    scale={starScale} // Adjust scale as necessary
-                    rotation={[-90, 0, 0]}
-                    animation={{ name: "rotate", loop: true, run: true }}
-                    type="OBJ" // Assuming the star model is an OBJ file
-                  />
+                  {Platform.OS === "ios" ? (
+                    <ViroImage
+                      height={0.25}
+                      width={0.25}
+                      position={starIosPosition} // Use the position prop passed to each Star instance
+                      // scale={starScale} // Adjust scale as necessary
+                      // placeholderSource={require("../assets/ReviewStar.png")}
+                      source={require("../assets/ReviewStar.png")}
+                    />
+                  ) : (
+                    <Viro3DObject
+                      source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                      // resources={require("../assets/stars/Blank.mtl")}
+                      position={starPosition} // Use the position prop passed to each Star instance
+                      scale={starScale} // Adjust scale as necessary
+                      rotation={[-90, 0, 0]}
+                      animation={{ name: "rotate", loop: true, run: true }}
+                      type="OBJ" // Assuming the star model is an OBJ file
+                    />
+                  )}
                 </ViroFlexView>
               )}
             </ViroFlexView>
