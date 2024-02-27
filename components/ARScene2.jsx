@@ -164,7 +164,7 @@ const ARScene2 = () => {
       // Conditions met, update star position and scale
       setStarPosition([0, -0.08, 0]);
       setStarScale([0.05, 0.05, 0.05]);
-      setIosStarPosition([0.2, 0, 0]);
+      setIosStarPosition([0.5, 0, 0]);
     }
   }, [nearbyVenues, reviews]);
 
@@ -186,8 +186,6 @@ const ARScene2 = () => {
             position={[0, 0, -8]}
             style={{ fontSize: 60, color: "white" }}
           />
-          {/*   useState([0, 0, 0]);
-        useState([0.1, 0.1, 0.1]); */}
           <Viro3DObject
             source={require("../assets/dragon/Dragon.obj")} // Adjust the path as necessary
             // resources={require("../assets/binocular/Blank.mtl")}
@@ -221,11 +219,11 @@ const ARScene2 = () => {
 
             {/* THE AVERAGE RATING VISUAL */}
             <ViroFlexView style={styles.displayedReviewAvgRatingVisual}>
-            <ViroFlexView style={styles.avg1Star}>
+              <ViroFlexView style={styles.avg1Star}>
                 {Platform.OS === "ios" ? (
                   <ViroImage
-                    height={0.25}
-                    width={0.25}
+                    height={0.2}
+                    width={0.2}
                     position={starIosPosition} // Use the position prop passed to each Star instance
                     // scale={starScale} // Adjust scale as necessary
                     // placeholderSource={require("../assets/ReviewStar.png")}
@@ -247,8 +245,8 @@ const ARScene2 = () => {
                 <ViroFlexView style={styles.avg2Star}>
                   {Platform.OS === "ios" ? (
                     <ViroImage
-                      height={0.25}
-                      width={0.25}
+                      height={0.2}
+                      width={0.2}
                       position={starIosPosition} // Use the position prop passed to each Star instance
                       // scale={starScale} // Adjust scale as necessary
                       // placeholderSource={require("../assets/ReviewStar.png")}
@@ -271,8 +269,8 @@ const ARScene2 = () => {
                 <ViroFlexView style={styles.avg3Star}>
                   {Platform.OS === "ios" ? (
                     <ViroImage
-                      height={0.25}
-                      width={0.25}
+                      height={0.2}
+                      width={0.2}
                       position={starIosPosition} // Use the position prop passed to each Star instance
                       // scale={starScale} // Adjust scale as necessary
                       // placeholderSource={require("../assets/ReviewStar.png")}
@@ -295,8 +293,8 @@ const ARScene2 = () => {
                 <ViroFlexView style={styles.avg4Star}>
                   {Platform.OS === "ios" ? (
                     <ViroImage
-                      height={0.25}
-                      width={0.25}
+                      height={0.2}
+                      width={0.2}
                       position={starIosPosition} // Use the position prop passed to each Star instance
                       // scale={starScale} // Adjust scale as necessary
                       // placeholderSource={require("../assets/ReviewStar.png")}
@@ -319,8 +317,8 @@ const ARScene2 = () => {
                 <ViroFlexView style={styles.avg5Star}>
                   {Platform.OS === "ios" ? (
                     <ViroImage
-                      height={0.25}
-                      width={0.25}
+                      height={0.2}
+                      width={0.2}
                       position={starIosPosition} // Use the position prop passed to each Star instance
                       // scale={starScale} // Adjust scale as necessary
                       // placeholderSource={require("../assets/ReviewStar.png")}
