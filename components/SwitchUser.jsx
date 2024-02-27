@@ -3,8 +3,11 @@ import {
     View,
     Text,
     Button,
+    Image,
+    ImageBackground,
     useWindowDimensions
   } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { CurrentUserContext } from "./CurrentUser";
 import { UserList } from "./UserList";
@@ -13,7 +16,6 @@ import { fetchUsers } from "../utils";
 
 //main styles file
 import styles from "../styles"
-import { ScrollView } from "react-native-gesture-handler";
 
 
 const SwitchUser = () => {
@@ -32,7 +34,6 @@ const SwitchUser = () => {
     useEffect(() => {
         fetchUsers()
         .then((result) => {
-            console.log(result, "<<<<<CHECK IT")
             setAvailableUsers(result)
         })
         .catch((error) => {
@@ -47,6 +48,9 @@ const SwitchUser = () => {
     };
 
     return (
+        <ImageBackground
+        source={require("../_media_/layered-steps-haikei.png")}
+        style={styles.backgroundImage}>
         <View style={styles.switchUserPageContainer}>
           <View style={styles.switchUserPageHeader}>
             <Button title="Back" style={{ fontSize: 20 }} color="#a3adf2" onPress={onGoHomeClick} />
@@ -69,8 +73,14 @@ const SwitchUser = () => {
             </View>
           </View>
         </View>
+        <View style={{ alignItems: 'center', padding: 0 }}>
+      <Image style={{marginBottom: 20}} source={require('../_media_/icons8-swipe-64.png')} />
+    </View>
+        </ImageBackground>
       );
     };
+
+    export default SwitchUser;
   
 
     // return (
@@ -82,14 +92,10 @@ const SwitchUser = () => {
     // )
 
 
-
-export default SwitchUser;
-
-
   //HANDLE THE SCROLLVIEW FUNCTIONALITY
-  const handleScroll = (event) => {
-    const offsetY = event.nativeEvent.contentOffset.y;
-    const itemHeight = 50;
-    const index = Math.floor(offsetY / itemHeight);
-    setSelectedItem(availableUsers[index]);
-  };
+  // const handleScroll = (event) => {
+  //   const offsetY = event.nativeEvent.contentOffset.y;
+  //   const itemHeight = 50;
+  //   const index = Math.floor(offsetY / itemHeight);
+  //   setSelectedItem(availableUsers[index]);
+  // };

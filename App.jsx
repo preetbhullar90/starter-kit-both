@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Platform } from "react-native";
 
 import WelcomePage from "./components/WelcomePage";
-import CommentPage from "./components/CommentPage";
+import CommentPage from "./components/ReviewPage";
 import SwitchUser from "./components/SwitchUser";
 import ARScene from "./components/ARScene";
 import ARScene2 from "./components/ARScene2";
@@ -82,30 +82,29 @@ const App = () => {
               {position && (showARView || showOwnDataARView) && (
                 <View
                   style={{
-                    top: 10,
-                    left: 10,
+                    bottom: 5,
+                    right: 5,
                     width: 150,
                     height: 150,
                     borderTopRightRadius: 20,
                     borderTopLeftRadius: 20,
                     borderBottomRightRadius: 20,
                     borderBottomLeftRadius: 20,
-                    borderTopColor: "green",
-                    borderLeftColor: "green",
-                    borderRightColor: "green",
+                    borderTopColor: "#545fb2",
+                    borderLeftColor: "#545fb2",
+                    borderRightColor: "#545fb2",
                     overflow: "hidden",
                     position: "absolute",
 
-                    borderBottomColor: "green",
-                    borderTopWidth: 3,
-                    borderRightWidth: 3,
-                    borderLeftWidth: 3,
-                    borderBottomWidth: 3,
+                    borderBottomColor: "#545fb2",
+                    borderTopWidth: 4,
+                    borderRightWidth: 4,
+                    borderLeftWidth: 4,
+                    borderBottomWidth: 4,
                   }}
                 >
                   <MapView
                     style={styles.map}
-                    minZoomLevel={13}
                     initialRegion={{
                       latitude: position.latitude,
                       longitude: position.longitude,
@@ -118,7 +117,7 @@ const App = () => {
                         latitude: position.latitude,
                         longitude: position.longitude,
                       }}
-                      radius={500}
+                      radius={200}
                       fillColor="rgba(255, 0, 0, 0.2)"
                       strokeColor="rgba(255, 0, 0, 0.5)"
                     />
@@ -136,7 +135,7 @@ const App = () => {
         </Stack.Screen>
 
         <Stack.Screen
-          name="CommentPage"
+          name="ReviewPage"
           component={CommentPage}
           options={{
             ...Platform.select({
@@ -153,7 +152,7 @@ const App = () => {
           }}
         />
 
-        <Stack.Screen 
+        <Stack.Screen
           name="SwitchUser"
           component={SwitchUser}
           options={{
@@ -170,7 +169,6 @@ const App = () => {
             }),
           }}
         />
-
       </Stack.Navigator>
     </NavigationContainer>
   );

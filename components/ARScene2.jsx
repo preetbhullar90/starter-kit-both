@@ -1,10 +1,11 @@
-import { StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import {
   ViroARScene,
   ViroFlexView,
   ViroText,
   ViroTrackingStateConstants,
+  Viro3DObject,
+  ViroAnimations,
 } from "@viro-community/react-viro";
 import Geolocation from "@react-native-community/geolocation";
 import { useNavigation } from "@react-navigation/native";
@@ -29,63 +30,22 @@ const ARScene2 = () => {
   const [reviews, setReviews] = useState([]);
   const [nearbyVenues, setNearbyVenues] = useState([]);
   const [selectedVenueId, setSelectedVenueId] = useState(null);
-
-  //console.log(reviews)
+  const [starPosition, setStarPosition] = useState([0, 0, 0]);
+  const [starScale, setStarScale] = useState([0.1, 0.1, 0.1]);
 
   useEffect(() => {
     fetchVenues()
       .then((response) => {
-        //console.log(response.venues, "response");
         setVenues(response.venues);
-        // setLoading(false);
       })
-      .catch((error) => {
-        //     setError(error.response);
-        // setLoading(false);
-      });
+      .catch((error) => {});
 
     fetchUsers()
       .then((response) => {
-        //console.log(response, "response");
         setUsers(response);
       })
-      .catch((error) => {
-        //setError(error);
-        // setLoading(false);
-      });
-    // fetchVenueById(venue_id)
-    //   .then((response) => {
-    //     console.log(response, "id");
-    //     setData1(response.venue);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     setError(error);
-    //     setLoading(false);
-    //   });
+      .catch((error) => {});
   }, []);
-
-  // useEffect(() => {
-  //   fetchVenues()
-  //     .then((response) => {
-  //       setReviews(response.venues);
-  //       //  setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       //setError(error.response);
-  //       //  setLoading(false);
-  //     });
-
-  //   fetchReviews(selectedVenueId)
-  //     .then((response) => {
-  //       setNewReviews(response.reviews);
-  //       //  setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       //setError(error.response);
-  //       //  setLoading(false);
-  //     });
-  // }, [selectedVenueId]);
 
   useEffect(() => {
     const fetchVenueData = async () => {
@@ -93,7 +53,6 @@ const ARScene2 = () => {
         const { latitude, longitude } = position;
         // Filter venue data based on proximity to current location
         const nearbyVenues = venues.filter((venue) => {
-
           if (venue.latitude && venue.longitude) {
             const distance = calculateDistance(
               latitude,
@@ -107,19 +66,15 @@ const ARScene2 = () => {
           return false;
         });
         setNearbyVenues(nearbyVenues);
-        console.log('Nearby >>> ', nearbyVenues);
-        fetchReviews(nearbyVenues[0].venue_id).then(({reviews}) => {
-          setReviews(reviews)
-           //console.log(reviews)
-
-        })
-        .catch(error => {
-          //error handling
-        })
+        console.log("Nearby >>> ", nearbyVenues);
+        fetchReviews(nearbyVenues[0].venue_id)
+          .then(({ reviews }) => {
+            setReviews(reviews);
+          })
+          .catch((error) => {});
       }
     };
     fetchVenueData();
-
   }, [position]);
 
   useEffect(() => {
@@ -133,7 +88,7 @@ const ARScene2 = () => {
       },
       {
         enableHighAccuracy: true,
-        distanceFilter: 2, // Update location when the device moves at least 2 meters
+        distanceFilter: 5, // Update location when the device moves at least 5 meters
         timeout: 5000, // Cancel if location retrieval takes too long
       }
     );
@@ -156,17 +111,11 @@ const ARScene2 = () => {
   // cycle through reviews
   const onReviewClick = () => {
     if (reviews.length > 0) {
-      // const venueId =
-      //   reviews[0].comments[reviewIndex] &&
-      //   reviews[0].comments[reviewIndex].venue_id;
-      // const venueWithComments = reviews.find(
-      //   (venue) => venue.venue_id === venueId
-      // );
-      const commentsForVenue = reviews
+      const reviewsForVenue = reviews;
       let nextIndex = reviewIndex + 1;
 
-      if (commentsForVenue && commentsForVenue.length > 0) {
-        nextIndex = nextIndex % commentsForVenue.length;
+      if (reviewsForVenue && reviewsForVenue.length > 0) {
+        nextIndex = nextIndex % reviewsForVenue.length;
       }
       setReviewIndex(nextIndex);
     }
@@ -183,130 +132,220 @@ const ARScene2 = () => {
     setReviewIndex(0);
   };
 
+  // add a BACK button maybe ?
+  // const onBackReviewsClick = () => {
+  //   setReviewIndex(/* go back logic */);
+  // };
+
   //add review ()
   const onAddReviewClick = (venue_id, place_name) => {
-    //console.log(venue_id)
-    setSelectedVenueId(venue_id, place_name);
-    navigation.navigate("CommentPage", { venue_id, place_name });
+    navigation.navigate("ReviewPage", { venue_id, place_name });
   };
 
-   // decide styling of the average rating bar ()
-   const getRatingStyle = (venue) => {
-    const rating = parseFloat(venue.average_star_rating);
-    if (rating >= 1 && rating < 2.1) {
-      return styles.displayedVenueAvgRatingBarRed;
-    } else if (rating >= 2.1 && rating < 3.1) {
-      return styles.displayedVenueAvgRatingBarOrange;
-    } else if (rating >= 3.1 && rating < 4.1) {
-      return styles.displayedVenueAvgRatingBarYellow;
-    } else if (rating >= 4.1 && rating < 5) {
-      return styles.displayedVenueAvgRatingBarLightGreen;
-    } else {
-      return styles.displayedVenueAvgRatingBarGreen;
+  // const getRatingStyle = (venue) => {
+  //   const rating = parseFloat(venue.average_star_rating);
+  //   if (rating >= 1 && rating < 2.1) {
+  //     return styles.displayedVenueAvgRatingBarRed;
+  //   } else if (rating >= 2.1 && rating < 3.1) {
+  //     return styles.displayedVenueAvgRatingBarOrange;
+  //   } else if (rating >= 3.1 && rating < 4.1) {
+  //     return styles.displayedVenueAvgRatingBarYellow;
+  //   } else if (rating >= 4.1 && rating < 5) {
+  //     return styles.displayedVenueAvgRatingBarLightGreen;
+  //   } else {
+  //     return styles.displayedVenueAvgRatingBarGreen;
+  //   }
+  // };
+
+  useEffect(() => {
+    if (nearbyVenues.length > 0 && reviews.length > 0) {
+      // Conditions met, update star position and scale
+      setStarPosition([0, -0.08, 0]);
+      setStarScale([0.05, 0.05, 0.05]);
     }
-  };
+  }, [nearbyVenues, reviews]);
+
+  ViroAnimations.registerAnimations({
+    rotate: {
+      duration: 1000,
+      properties: {
+        rotateY: "+=90",
+      },
+    },
+  });
 
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
+      {!(nearbyVenues && nearbyVenues.length > 0 && reviews.length > 0) && (
+        <>
+          <ViroText
+            text="Scanning..."
+            position={[0, 0, -8]}
+            style={{ fontSize: 60, color: "white" }}
+          />
+          {/*   useState([0, 0, 0]);
+        useState([0.1, 0.1, 0.1]); */}
+          <Viro3DObject
+            source={require("../assets/binocular/binocular.obj")} // Adjust the path as necessary
+            // resources={require("../assets/binocular/Blank.mtl")}
+            position={[2, 2, -30]} // Use the position prop passed to each Star instance
+            scale={[0.025, 0.025, 0.025]} // Adjust scale as necessary
+            rotation={[-90, 0, 0]}
+            animation={{ name: "rotate", loop: true, run: true }}
+            type="OBJ" // Assuming the star model is an OBJ file
+          />
+        </>
+      )}
       {nearbyVenues &&
         nearbyVenues.length > 0 &&
         reviews.length > 0 &&
         nearbyVenues.map((venue, index) => (
-
-            // THE MAIN REVIEW CARD CONTAINER
-              <ViroFlexView
-                style={styles.venueInfoAndReviewsContainer}
-                key={index}
-                position={[0, index * -4, -10]}
-                transformBehaviors={["billboard"]}
-                
-              >
-
+          // THE MAIN REVIEW CARD CONTAINER
+          <ViroFlexView
+            style={styles.venueInfoAndReviewsContainer}
+            key={index}
+            position={[0, index * -4, -10]}
+            transformBehaviors={["billboard"]}
+          >
             {/* THE PARTICULAR VENUE NAME HEADER */}
-          <ViroFlexView  style={styles.displayedVenueTitleBar} >
-            <ViroText
-              style={styles.displayedVenueTitleBarText}
-              text={`${venue.place_name}`}
-              position={[0, index * 0.5, -2]}
-            />
-          </ViroFlexView>
-
-          {/* THE AVERAGE RATING VISUAL */}
-          <ViroFlexView style={styles.displayedReviewAvgRatingVisual} >
-            <ViroFlexView style={styles.avg1Star} />
-            {parseInt(venue.average_star_rating) >= 2 && <ViroFlexView style={styles.avg2Star} />}
-            {parseInt(venue.average_star_rating) >= 3 && <ViroFlexView style={styles.avg3Star} />}
-            {parseInt(venue.average_star_rating) >= 4 && <ViroFlexView style={styles.avg4Star} />}
-            {parseInt(venue.average_star_rating) === 5 && <ViroFlexView style={styles.avg5Star} />}
-          </ViroFlexView>
-
-          {/* THE AVERAGE RATING TEXT BAR */}
-          <ViroFlexView style={[getRatingStyle(venue)]}>
-            <ViroText
-            style={styles.displayedVenueAvgRatingBarText}
-            text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
-          
-            />
-          </ViroFlexView>
-
-         {/* THE REVIEW BODY AND INDIVIDUAL REVIEW RATING */}
-         <ViroFlexView style={styles.displayedReviewBody}>
-          
-            <ViroText style={styles.displayedReviewBodyText} 
-            text={` ${reviews[reviewIndex].author}  rated  ${reviews[reviewIndex].star_rating} Stars \n ${reviews[reviewIndex].body}`} />
-
-          </ViroFlexView>
-
-    
-         {/* bigdady button bar */}
-         <ViroFlexView style={styles.buttonBar}>
-
-            {/* ADD REVIEW BUTTON */}
-            <ViroFlexView
-              style={styles.addReviewButton}
-              onClickState={onAddReviewClick}
-            >
+            <ViroFlexView style={styles.displayedVenueTitleBar}>
               <ViroText
-                style={styles.addReviewButtonText}
-                text={"Add a Review"}
-              />
-            </ViroFlexView> 
-
-            {/* BLANK BUTTTON*/}
-            <ViroFlexView
-              style={styles.anotherOneButton}
-              // onClickState={onResetReviewsClick}
-            >
-              <ViroText
-                style={styles.anotherOneButtonText}
-                text={"Another One"}
+                style={styles.displayedVenueTitleBarText}
+                text={`${venue.place_name}`}
+                position={[0, index * 0.5, -2]}
               />
             </ViroFlexView>
 
-            {/* BACK TO TOP BUTTON */}
-            <ViroFlexView
-              style={styles.mostRecentReviewButton}
-              onClickState={onResetReviewsClick}
-            >
+            {/* THE AVERAGE RATING VISUAL */}
+            <ViroFlexView style={styles.displayedReviewAvgRatingVisual}>
+              <ViroFlexView style={styles.avg1Star}>
+                <Viro3DObject
+                  source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                  // resources={require("../assets/stars/Blank.mtl")}
+                  position={starPosition} // Use the position prop passed to each Star instance
+                  scale={starScale} // Adjust scale as necessary
+                  rotation={[-90, 0, 0]}
+                  animation={{ name: "rotate", loop: true, run: true }}
+                  type="OBJ" // Assuming the star model is an OBJ file
+                />
+              </ViroFlexView>
+              {parseInt(venue.average_star_rating) >= 2 && (
+                <ViroFlexView style={styles.avg2Star}>
+                  <Viro3DObject
+                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                    // resources={require("../assets/stars/Blank.mtl")}
+                    position={starPosition} // Use the position prop passed to each Star instance
+                    scale={starScale} // Adjust scale as necessary
+                    rotation={[-90, 0, 0]}
+                    animation={{ name: "rotate", loop: true, run: true }}
+                    type="OBJ" // Assuming the star model is an OBJ file
+                  />
+                </ViroFlexView>
+              )}
+              {parseInt(venue.average_star_rating) >= 3 && (
+                <ViroFlexView style={styles.avg3Star}>
+                  <Viro3DObject
+                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                    // resources={require("../assets/stars/Blank.mtl")}
+                    position={starPosition} // Use the position prop passed to each Star instance
+                    scale={starScale} // Adjust scale as necessary
+                    rotation={[-90, 0, 0]}
+                    animation={{ name: "rotate", loop: true, run: true }}
+                    type="OBJ" // Assuming the star model is an OBJ file
+                  />
+                </ViroFlexView>
+              )}
+              {parseInt(venue.average_star_rating) >= 4 && (
+                <ViroFlexView style={styles.avg4Star}>
+                  <Viro3DObject
+                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                    // resources={require("../assets/stars/Blank.mtl")}
+                    position={starPosition} // Use the position prop passed to each Star instance
+                    scale={starScale} // Adjust scale as necessary
+                    rotation={[-90, 0, 0]}
+                    animation={{ name: "rotate", loop: true, run: true }}
+                    type="OBJ" // Assuming the star model is an OBJ file
+                  />
+                </ViroFlexView>
+              )}
+              {parseInt(venue.average_star_rating) === 5 && (
+                <ViroFlexView style={styles.avg5Star}>
+                  <Viro3DObject
+                    source={require("../assets/stars/Star_v3.obj")} // Adjust the path as necessary
+                    // resources={require("../assets/stars/Blank.mtl")}
+                    position={starPosition} // Use the position prop passed to each Star instance
+                    scale={starScale} // Adjust scale as necessary
+                    rotation={[-90, 0, 0]}
+                    animation={{ name: "rotate", loop: true, run: true }}
+                    type="OBJ" // Assuming the star model is an OBJ file
+                  />
+                </ViroFlexView>
+              )}
+            </ViroFlexView>
+
+            {/* THE AVERAGE RATING TEXT BAR */}
+            <ViroFlexView style={styles.displayedVenueAvgRatingBar}>
               <ViroText
-                style={styles.mostRecentReviewButtonText}
-                text={"Back to Top"}
+                style={styles.displayedVenueAvgRatingBarText}
+                text={`Average Rating: ${venue.average_star_rating}, from ${reviews.length} Reviews`}
               />
             </ViroFlexView>
-          
-             {/* NEXT BUTTON */}
-            <ViroFlexView style={styles.displayedNextReviewButton}>
+
+            {/* THE REVIEW BODY AND INDIVIDUAL REVIEW RATING */}
+            <ViroFlexView style={styles.displayedReviewBody}>
               <ViroText
-                style={styles.displayedReviewNextButtonText}
-                text={`Next Review >`}
+                style={styles.displayedReviewBodyText}
+                text={` ${reviews[reviewIndex].author}  rated  ${reviews[reviewIndex].star_rating} Stars and wrote: \n "${reviews[reviewIndex].body}"`}
+              />
+            </ViroFlexView>
+
+            {/* bigdady button bar */}
+            <ViroFlexView style={styles.buttonBar}>
+              {/* ADD REVIEW BUTTON */}
+              <ViroFlexView
+                style={styles.addReviewButton}
+                onClickState={() =>
+                  onAddReviewClick(venue.venue_id, venue.place_name)
+                }
+              >
+                <ViroText
+                  style={styles.addReviewButtonText}
+                  text={"Add a Review"}
+                />
+              </ViroFlexView>
+
+              {/* BACK BUTTTON*/}
+              {/* <ViroFlexView
+                style={styles.anotherOneButton}
+                // onClickState={onBackReviewsClick}
+              >
+                <ViroText style={styles.anotherOneButtonText} text={"< Back"} />
+              </ViroFlexView> */}
+
+              {/* MOST RECENT BUTTON */}
+              <ViroFlexView
+                style={styles.mostRecentReviewButton}
+                onClickState={onResetReviewsClick}
+              >
+                <ViroText
+                  style={styles.mostRecentReviewButtonText}
+                  text={"Most Recent"}
+                />
+              </ViroFlexView>
+
+              {/* NEXT BUTTON */}
+              <ViroFlexView
+                style={styles.displayedNextReviewButton}
                 onClickState={onClickState}
-              />
+              >
+                <ViroText
+                  style={styles.displayedReviewNextButtonText}
+                  text={`Next >`}
+                />
+              </ViroFlexView>
             </ViroFlexView>
-
           </ViroFlexView>
-
-        </ViroFlexView>
-      ))}
+        ))}
     </ViroARScene>
   );
 };
