@@ -164,7 +164,7 @@ const ARScene2 = () => {
       // Conditions met, update star position and scale
       setStarPosition([0, -0.08, 0]);
       setStarScale([0.05, 0.05, 0.05]);
-      setIosStarPosition([0.2, 0, 0]);
+      setIosStarPosition([0, 0, 0]);
     }
   }, [nearbyVenues, reviews]);
 
