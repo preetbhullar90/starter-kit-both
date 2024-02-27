@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { Platform } from "react-native";
 const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
 const LemonMilkBold = require('./assets/fonts/lemonmilk/LEMONMILK-Bold.otf');
 
@@ -154,9 +154,11 @@ ring: {
 },
 displayedVenueTitleBar: {
   width: 6,
+  flex: Platform.OS === 'ios'? 0.5:null,
   backgroundColor: "#a3adf2", // Navy background for the title
   padding: 0.1, // Adjust padding for the title
   marginBottom: 0.1, // Space below the title bar
+
 },
 displayedVenueTitleBarText: {
   height: 0.5,
@@ -167,7 +169,7 @@ displayedVenueTitleBarText: {
 },
 //////////////////////////
     displayedReviewAvgRatingVisual: {
-        flex: 0.2,
+        flex: Platform.OS === 'ios'? 0.3 : 0.2,
         opacity: 1,
         width: 6,
         flexDirection: "row",
