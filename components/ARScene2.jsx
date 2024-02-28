@@ -34,7 +34,7 @@ const ARScene2 = () => {
   const [starPosition, setStarPosition] = useState([0, 0, 0]);
   const [starScale, setStarScale] = useState([0.1, 0.1, 0.1]);
   const [unfilteredReviews, setUnfilteredReviews] = useState([]);
-  const [indexArr, setIndexArr] = useState([0])
+  const [indexArr, setIndexArr] = useState([0]);
   const [cameraPosition, setCameraPosition] = useState([0, 0, 0]);
   const [cameraForward, setCameraForward] = useState([0, 0, -1]);
   const [contentPosition, setContentPosition] = useState(null);
@@ -93,34 +93,36 @@ const ARScene2 = () => {
         console.log("Nearby >>> ", nearbyVenues);
 
         //fetch reviews (can get duplicates and unordered)
-        nearbyVenues.forEach((venue) => {
-          setIndexArr([...indexArr, 0])
-          fetchReviews(venue.venue_id)
-            .then((res) => {
-              const newReviews = res.reviews;
-              setUnfilteredReviews([...unfilteredReviews, newReviews]);
-            })
-            .catch((error) => {
-              //error handling
-            });
-        });
-        //algorithm that filters duplicate reviews
-        const item_order = nearbyVenues.map((p) => p.venue_id);
-        setReviews(
-          unfilteredReviews
-            .filter(((t = {}), (a) => !(t[a] = a in t)))
-            .slice()
-            .sort((a, b) => {
-              var A = a[0].venue_id,
-                B = b[0].venue_id;
+        if (nearbyVenues.length > 0) {
+          nearbyVenues.forEach((venue) => {
+            setIndexArr([...indexArr, 0]);
+            fetchReviews(venue.venue_id)
+              .then((res) => {
+                const newReviews = res.reviews;
+                setUnfilteredReviews([...unfilteredReviews, newReviews]);
+              })
+              .catch((error) => {
+                //error handling
+              });
+          });
+          //algorithm that filters duplicate reviews
+          const item_order = nearbyVenues.map((p) => p.venue_id);
+          setReviews(
+            unfilteredReviews
+              .filter(((t = {}), (a) => !(t[a] = a in t)))
+              .slice()
+              .sort((a, b) => {
+                var A = a[0].venue_id,
+                  B = b[0].venue_id;
 
-              if (item_order.indexOf(A) > item_order.indexOf(B)) {
-                return 1;
-              } else {
-                return -1;
-              }
-            })
-        );
+                if (item_order.indexOf(A) > item_order.indexOf(B)) {
+                  return 1;
+                } else {
+                  return -1;
+                }
+              })
+          );
+        }
       }
     };
     fetchVenueData();
@@ -148,7 +150,12 @@ const ARScene2 = () => {
   }, []);
 
   useEffect(() => {
-    if (nearbyVenues && nearbyVenues.length > 0 && reviews.length > 0 && !objectPlaced) {
+    if (
+      nearbyVenues &&
+      nearbyVenues.length > 0 &&
+      reviews.length > 0 &&
+      !objectPlaced
+    ) {
       // Calculate the initial position for the content
       const initialPosition = objectPositionInFrontOfCamera(10, 0, 0);
       setContentPosition(initialPosition);
@@ -167,22 +174,20 @@ const ARScene2 = () => {
   }
 
   useEffect(() => {
-    if (reviews.length > nearbyVenues.length){
-      setReviews(
-        reviews.filter((review, index) => reviews.length / 2 > index)
-      )
+    if (reviews.length > nearbyVenues.length) {
+      setReviews(reviews.filter((review, index) => reviews.length / 2 > index));
     }
-  }, [reviews.length])
+  }, [reviews.length]);
 
   // cycle through reviews
   const onReviewClick = (index) => {
     if (reviews.length > 0) {
-      const newArr = [...indexArr]
-      newArr[index] = indexArr[index] + 1
+      const newArr = [...indexArr];
+      newArr[index] = indexArr[index] + 1;
       if (typeof reviews[index][newArr[index]] === "undefined") {
-        newArr[index] = 0
+        newArr[index] = 0;
       }
-      setIndexArr(newArr)
+      setIndexArr(newArr);
     }
   };
 
@@ -194,9 +199,9 @@ const ARScene2 = () => {
 
   //go back to the latest review ()
   const onResetReviewsClick = (index) => {
-    const newArr = [...indexArr]
-    newArr[index] = 0
-    setIndexArr(newArr)
+    const newArr = [...indexArr];
+    newArr[index] = 0;
+    setIndexArr(newArr);
   };
 
   // add a BACK button maybe ?
@@ -247,7 +252,12 @@ const ARScene2 = () => {
       onTrackingUpdated={onInitialized}
       onCameraTransformUpdate={onCameraTransformUpdate}
     >
-      {!(nearbyVenues && nearbyVenues.length > 0 && reviews.length > 0) && (
+      {!(
+        nearbyVenues &&
+        nearbyVenues.length > 0 &&
+        reviews.length > 0 &&
+        reviews.length === nearbyVenues.length
+      ) && (
         <>
           {/* <ViroText
             text="Scanning..."
@@ -272,7 +282,7 @@ const ARScene2 = () => {
           />
         </>
       )}
-{nearbyVenues &&
+      {nearbyVenues &&
         nearbyVenues.length > 0 &&
         reviews.length > 0 &&
         reviews.length === nearbyVenues.length &&
@@ -281,7 +291,9 @@ const ARScene2 = () => {
           <ViroFlexView
             style={styles.venueInfoAndReviewsContainer}
             key={index}
-            position={contentPosition.map((value, idx) => idx === 1 ? value + index * -6 : value)} // Adjust Y position based on index if needed
+            position={contentPosition.map((value, idx) =>
+              idx === 1 ? value + index * -6 : value
+            )} // Adjust Y position based on index if needed
             // position={objectPositionInFrontOfCamera(10, 0, index * -6)} // (how far from camera, +above/-below middle, -left/+right)
             transformBehaviors={["billboard"]}
           >
@@ -428,7 +440,9 @@ const ARScene2 = () => {
             <ViroFlexView style={styles.displayedReviewBody}>
               <ViroText
                 style={styles.displayedReviewBodyText}
-                text={` ${review[indexArr[index]].author}  rated  ${review[indexArr[index]].star_rating} Stars and wrote: \n "${review[indexArr[index]].body}"`}
+                text={` ${review[indexArr[index]].author}  rated  ${
+                  review[indexArr[index]].star_rating
+                } Stars and wrote: \n "${review[indexArr[index]].body}"`}
               />
             </ViroFlexView>
 
@@ -438,7 +452,10 @@ const ARScene2 = () => {
               <ViroFlexView
                 style={styles.addReviewButton}
                 onClickState={() =>
-                  onAddReviewClick(review[indexArr[index]].venue_id, review[indexArr[index]].place_name)
+                  onAddReviewClick(
+                    review[indexArr[index]].venue_id,
+                    review[indexArr[index]].place_name
+                  )
                 }
               >
                 <ViroText
@@ -458,7 +475,9 @@ const ARScene2 = () => {
               {/* MOST RECENT BUTTON */}
               <ViroFlexView
                 style={styles.mostRecentReviewButton}
-                onClickState={() => {onResetReviewsClick(index)}}
+                onClickState={() => {
+                  onResetReviewsClick(index);
+                }}
               >
                 <ViroText
                   style={styles.mostRecentReviewButtonText}
@@ -469,7 +488,9 @@ const ARScene2 = () => {
               {/* NEXT BUTTON */}
               <ViroFlexView
                 style={styles.displayedNextReviewButton}
-                onClickState={(stateValue) => {onClickState(stateValue, index)}}
+                onClickState={(stateValue) => {
+                  onClickState(stateValue, index);
+                }}
               >
                 <ViroText
                   style={styles.displayedReviewNextButtonText}
