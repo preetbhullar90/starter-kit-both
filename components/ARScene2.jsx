@@ -265,14 +265,14 @@ const ARScene2 = () => {
             style={{ fontSize: 60, color: "white" }}
             transformBehaviors={["billboard"]}
           /> */}
-          {/* <Viro3DObject
-            source={require("../assets/binocular/Binoculars.obj")}
+          <Viro3DObject
+            source={require("../assets/Binoculars.obj")}
             position={objectPositionInFrontOfCamera(15, 3, 0)} // (how far from camera, +above/-below middle, -left/+right)
             scale={[0.5, 0.5, 0.5]}
             rotation={[0, 0, 0]}
             animation={{ name: "rotate", loop: true, run: true }}
             type="OBJ"
-          /> */}
+          />
           <ViroImage
             height={3}
             width={5}
@@ -282,7 +282,7 @@ const ARScene2 = () => {
           />
         </>
       )}
-      {nearbyVenues &&
+      {contentPosition && nearbyVenues &&
         nearbyVenues.length > 0 &&
         reviews.length > 0 &&
         reviews.length === nearbyVenues.length &&
