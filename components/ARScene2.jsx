@@ -24,7 +24,7 @@ const ARScene2 = () => {
   const navigation = useNavigation();
   const [text, setText] = useState("Initializing AR...");
   const [position, setPosition] = useState(null);
-  const [radius, setRadius] = useState(300);
+  const [radius, setRadius] = useState(30);
   const [venues, setVenues] = useState([]);
   const [reviewIndex, setReviewIndex] = useState(0);
   const [users, setUsers] = useState([]);

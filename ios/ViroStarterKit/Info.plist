@@ -33,10 +33,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to use your camera</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We need your location to provide relevant information based on your current location, even when the app is in the background.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need your location to provide relevant information based on your current location, even when the app is in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
