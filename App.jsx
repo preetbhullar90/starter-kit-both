@@ -49,7 +49,7 @@ const App = () => {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerTitle: "AR camera",
+          headerTitle: "Home",
           headerShown: false,
           gestureEnabled: true,
         }}
@@ -143,6 +143,7 @@ const App = () => {
                 headerShown: true,
                 headerTitle: "Add a review",
                 gestureEnabled: true,
+                headerBackTitle: "AR camera"
               },
               android: {
                 headerShown: false,
@@ -159,7 +160,7 @@ const App = () => {
             ...Platform.select({
               ios: {
                 headerShown: true,
-                headerTitle: "Add a review",
+                headerTitle: "Switch user",
                 gestureEnabled: true,
               },
               android: {
