@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-
+import { Platform } from "react-native";
 const LemonMilkRegular = require('./assets/fonts/lemonmilk/LEMONMILK-Regular.otf');
+const LemonMilkBold = require('./assets/fonts/lemonmilk/LEMONMILK-Bold.otf');
 
 const styles = StyleSheet.create({
 /////////////DEFAULT VIRO STYLING/////////////////
@@ -10,19 +11,24 @@ const styles = StyleSheet.create({
         color: "#000",
         textAlign: "center",
     },
-////////////WELCOME PAGE STYLING//////////////
-// backgroundImage: {
-//   flex:1,
-//   resizeMode:"cover"
-// },
+//////////WELCOME PAGE STYLING//////////////
+backgroundImage: {
+  flex: 1,
+  resizeMode:"cover",
+},
 
 container: {
   flex: 1,
-  justifyContent: "center",
+  justifyContent: "top",
   alignItems: "center",
-  backgroundColor: "#2E3B4E",
+  marginTop: 160,
 },
 
+logo: {
+  marginBottom: 60,
+height: 200,
+width: 350,
+},
 appName: {
   color: '#FFFFFF',
   fontSize: 40,
@@ -30,9 +36,9 @@ appName: {
   marginBottom: 15,
 },
 subtitle: {
-  color: '#8F9BB3',
+  color: 'white',
   fontSize: 18,
-  marginBottom: 15,
+  marginBottom: 50,
 },
 arIcon: {
   width: 75,
@@ -44,27 +50,39 @@ button: {
   justifyContent: 'center',
   paddingVertical: 3,
   paddingHorizontal: 5,
-  borderRadius: 4,
+  borderRadius: 2,
   elevation: 3,
-  backgroundColor: 'green',
+  backgroundColor: "#a5d8ff"
+  
 },
 text: {
   fontSize: 16,
   lineHeight: 21,
   fontWeight: 'bold',
   letterSpacing: 0.25,
-  color: 'white',
+  color: 'black',
   textAlign:"center"
 },
 buttonGroupContainer: {
   flexDirection: 'row',
   justifyContent: 'space-between', 
   width: '80%', 
-  marginTop: 15, 
+  marginTop: 30, 
 },
 buttonGroup: {
   flex: 1,
   alignItems: 'center', 
+},
+//ring
+ring: {
+  position: 'absolute', // Make the ring absolute positioned
+  width: 400,
+  height: 400,
+  borderRadius: 200,
+  backgroundColor: '#a3adf2',
+  borderWidth: 1,
+  borderColor: '#7789ea',
+  opacity: 1,
 },
 
 ///////////////SWITCH USER PAGE STYLING///////////
@@ -73,56 +91,45 @@ buttonGroup: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#a5d8fd'
     },
-
     switchUserPageHeader: {
       position: 'absolute',
       top: 20,
       left: 20,
     },
-
     switchUserPageContent: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
     },
-
     switchUserPageText: {
       textAlign: 'center',
-      marginBottom: 20,
+      fontSize: 20,
+      lineHeight: 22,
+      marginBottom: 150,
       padding: 10,
       color: 'white',
       fontSize: 15,
       fontFamily: 'LemonMilkRegular',
     },
-
-    // userListContainer: {
-    //   width: '80%', // Adjust the width as per your requirement
-    //   borderWidth: 10,
-    //   borderColor: '#545fb2',
-    //   borderRadius: 0,
-    //   padding: 0,
-    //   flexDirection: 'row'
-    // },
-
     userListContainer: {
-      width: '80%', // Adjust the width as per your requirement
+      width: '90%',
       borderWidth: 1,
-      borderColor: 'a5d8fd',
+      borderColor: 'white',
       borderRadius: 0,
       padding: 10,
-      marginTop: 20, // Add margin top as needed
-      height: 100, // Specify the height of the ScrollView container
+      marginTop: 20,
+      height: 100,
     },
     userListScrollContainer: {
       alignItems: 'center',
     },
-
     userCard: {
       borderWidth: 2,
-      borderColor: '#545fb2',
+      borderColor: 'rgba(84, 95, 178, 0)',
       backgroundColor: '#a3adf2',
+      marginLeft: 10,
+      marginRight: 10,
       height: 50
     },
     userCardText: {
@@ -136,28 +143,33 @@ buttonGroup: {
 
 
 ////////////AR ELEMENTS STYLING///////////////////
-    venueInfoAndReviewsContainer: {
-        height: 4,
-        width: 6,
-        backgroundColor: "black",
-        opacity: 0.7
-    },
-    displayedVenueTitleBar: {
-        flex: 0.5,
-        flexDirection: "row",
-        backgroundColor: "navy"
-    },
-    displayedVenueTitleBarText: {
-        color: "white",
-        flexDirection: "row",
-        textAlignHorizontal: "center",
-        textAlign: "center",
-        fontSize: 30,
-        fontWeight: "bold"
-    },
+   venueInfoAndReviewsContainer: {
+  height: 4,
+  width: 6,
+  backgroundColor: "rgba(0, 0, 0, 0.7)", // Making background slightly transparent for AR feel
+  flexDirection: "column", // Ensure content is laid out vertically
+  justifyContent: "flex-start", // Align items to the top
+  alignItems: "center", // Center items horizontally
+  padding: 0.1, // Adjust padding as necessary
+},
+displayedVenueTitleBar: {
+  width: 6,
+  flex: Platform.OS === 'ios'? 0.5:null,
+  backgroundColor: "#a3adf2", // Navy background for the title
+  padding: 0.1, // Adjust padding for the title
+  marginBottom: 0.1, // Space below the title bar
+
+},
+displayedVenueTitleBarText: {
+  height: 0.5,
+  color: "#545fb2",
+  fontSize: 30, // Adjust font size for readability in AR
+  fontWeight: "bold",
+  textAlign: "center",
+},
 //////////////////////////
     displayedReviewAvgRatingVisual: {
-        flex: 0.2,
+        flex: Platform.OS === 'ios'? 0.3 : 0.2,
         opacity: 1,
         width: 6,
         flexDirection: "row",
@@ -171,13 +183,13 @@ buttonGroup: {
     },
     avg2Star: {
         flex: 0.2,
-        backgroundColor: 'rgb(255, 165, 0)',
+        backgroundColor: 'rgb(207, 107, 31)',
         opacity: 1,
         width: 1.2
     },
     avg3Star: {
         flex: 0.2,
-        backgroundColor: 'rgb(255, 255, 0)',
+        backgroundColor: 'rgb(217, 186, 108)',
         opacity: 1,
         width: 1.2
     },
@@ -195,7 +207,7 @@ buttonGroup: {
     },
 
 
-////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED)
+////////////AVERAGE RATING BARS (CONDITIONALLY COLOURED) STYLING
 
       displayedVenueAvgRatingBarRed: {
         flex: 0.25,
@@ -223,95 +235,163 @@ buttonGroup: {
         backgroundColor: "rgb(0, 128, 0)", // Green
       },
 
-////////////////////////////
-    displayedVenueAvgRatingBarText: {
+displayedVenueAvgRatingBarText: {
         color: "black",
         textAlign: "center",
-        fontSize: 15
-    },
-    displayedReviewBody: {
-        flex: 2,// edit here to give more space if needed. but make sure it doesnt overlap.
-        flexDirection: "row",
-        backgroundColor: "white"
-    },
-    displayedReviewBodyText: {
-        color: "black",
-        alignItems: "center",
-        fontSize: 30
-    },
+        fontSize: Platform.OS === 'ios'? 15: 17,
+        flex: 0.5,
+        width: 6,
+        backgroundColor: "navy",
+        padding: 3, // Add padding for spacing
+        marginBottom: 0.1, // Space below each review section
+      },
 
-    // displayedReviewRating: {
-    //     color: "black",
-    //     flex: 0.1,
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     fontFamily:"",
-    //     fontSize: 30
-    // },
+////////////////////////////
+  
+  displayedReviewBody: {
+  flex: 2,
+  width: 6,
+  backgroundColor: "white",
+  padding: 0.1, // Add padding for spacing
+  marginBottom: 0.1, // Space below each review section
+},
+displayedReviewBodyText: {
+  height: 2,
+  color: "#545fb2",
+  fontSize: 24, // Adjust font size for readability
+  textAlign: "left",
+},
 
-//BUTTON BAR --
-  buttonBar: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    backgroundColor: "black"
-    // backgroundColor:"white" // setting to white makes it look greyed out
-  }, 
+///////////////////////////////////////////////////////////////////////
+
+  //BUTTON BAR --
+buttonBar: {
+  flexDirection: "row",
+  justifyContent: 'space-between', // Distribute buttons evenly
+  alignItems: "center",
+  width: 6,
+  flex: 0.75,
+  backgroundColor: "#a3adf2", // Consistent with container style
+  padding: 0.1, // Padding for spacing
+},
+
+//ADD REVIEW BUTTON
+addReviewButton: {
   
-  //ADD REVIEW BUTTON
-  addReviewButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "green",
-    opacity: 0.7,
-  },
-  addReviewButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 30,
-  },  
-  //BLANK BUTTON _ANOTHER
-  anotherOneButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "blue",
-    opacity: 0.7,
-  },
-  anotherOneButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 30,
-  },
-  
-  //BACK TO TOP BUTTON
-  mostRecentReviewButton: {
-    height: 1,
-    width: 1.5,
-    backgroundColor: "black",
-    opacity: 0.7,
-  },
-  mostRecentReviewButtonText: {
-    color: "white",
-    
-    textAlign: "center",
-    fontSize: 30,
-  },
-  //NEXTT BUTTON
-  displayedNextReviewButton: {
-    color: "Blue",
-    height: 1,
-    width: 1.5,
-    backgroundColor: "red",
-    fontSize: 25,
-  },
-  displayedReviewNextButtonText: {
-    color: "white",
-    
-    textAlign: "center",
-    fontSize: 30,
-  },
+  height: 0.5,
+  width: 1.8,
+  backgroundColor: "#545fb2",
+},
+addReviewButtonText: {
+  flex: 1,
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+//BLANK BUTTON _ANOTHER
+anotherOneButton: {
+  flex: 1,
+  height: 0.5,
+  width: 1.8,
+  backgroundColor: "#545fb2",
+
+},
+anotherOneButtonText: {
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+
+//BACK TO TOP BUTTON
+mostRecentReviewButton: {
+  height: 0.5,
+  width: 1.8,
+  backgroundColor: "#545fb2",
+
+},
+mostRecentReviewButtonText: {
+  flex: 1,
+  color: "white",
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+//NEXTT BUTTON
+displayedNextReviewButton: {
+
+  color: "Blue",
+  height: 0.5,
+  width: 1.8,
+  backgroundColor: "#545fb2",
+  fontSize: 25,
+},
+displayedReviewNextButtonText: {
+  color: "white",
+  flex: 1,
+  fontSize: 25,
+  fontWeight: "bold",
+  textAlign: "center",
+},
+
+/////////////REVIEW PAGE STYLING////////////////////
+
+reviewPageBackgroundImage: {
+  flex: 1,
+  resizeMode: "cover",
+  justifyContent: "center",
+  alignItems: "center",
+},
+reviewPageBodyInput: {
+  backgroundColor: "white",
+  borderRadius: 0,
+  paddingHorizontal: 10,
+  marginBottom: 10,
+  color: "#7789EA",
+  // Double the height: increased to 200px
+  height: 200,
+  // Set fixed width: adjust as needed
+  width: 300,
+  fontFamily: "LemonMilkRegular"
+},
+reviewPageContainer: {
+  paddingHorizontal: 20,
+  color: "#E6E6E6",
+},
+reviewPageFormContainer: {
+  marginTop: 20,
+},
+reviewPageRatingInput: {
+  backgroundColor: "white",
+  borderRadius: 0,
+  paddingHorizontal: 10,
+  marginBottom: 30,
+  paddingBottom: 30,
+  color: "#E6E6E6",
+  // Double the height: increased to 200px
+  height: 100,
+  // Set fixed width: adjust as needed
+  width: 300,
+},
+reviewPageButtonContainer: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginBottom: 20, // Add some spacing below buttons
+  alignItems: "center"
+},
+reviewPageRing: {
+  position: "absolute", // Make the ring absolute positioned
+  width: 400,
+  height: 400,
+  borderRadius: 200,
+  backgroundColor: "#A3ADF2",
+  borderWidth: 1,
+  borderColor: "#7789EA",
+  opacity: 1,
+  top: 0,
+},
+
 });
 
 module.exports = styles;
